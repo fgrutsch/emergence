@@ -6,7 +6,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="description" content='docs'/>
-<link rel="canonical" href="https://github.com/firstbirdtech/emergencegetting-started.html"/>
+<link rel="canonical" href="https://github.com/fgrutsch/emergencegetting-started.html"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:100normal,100italic,300normal,300italic,400normal,400italic,500normal,500italic,700normal,700italic,900normal,900italicc" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="js/page.js"></script>
@@ -32,7 +32,7 @@
 <span class="home-icon">⌂</span>eMERGEnce
 </a>
 <div class="version-number">
-0.2.0
+0.2.1
 </div>
 </div>
 <div class="nav-toc">
@@ -72,7 +72,7 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <span class="home-icon">⌂</span>eMERGEnce
 </a>
 <div class="version-number">
-0.2.0
+0.2.1
 </div>
 </div>
 <div class="nav-toc">
@@ -108,8 +108,8 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <h1><a href="#getting-started" name="getting-started" class="anchor"><span class="anchor-link"></span></a>Getting Started</h1>
 <p>You can run eMERGEnce with <a href="https://www.docker.com/">Docker</a> or with <a href="https://get-coursier.io/docs/cli-install">coursier</a>.</p>
 <h2><a href="#docker" name="docker" class="anchor"><span class="anchor-link"></span></a>Docker</h2>
-<p>To get a list of available options run: <code>docker run firstbird/emergence:latest --help</code> and you should get the following output:</p>
-<pre><code>eMERGEnce 0.2.0
+<p>To get a list of available options run: <code>docker run fgrutsch/emergence:latest --help</code> and you should get the following output:</p>
+<pre><code>eMERGEnce 0.2.1
 Usage: emergence [options]
   --usage  &lt;bool&gt;
         Print usage and exit
@@ -129,7 +129,7 @@ Usage: emergence [options]
         The name/path of the eMERGEnce config file inside the repository. Default: .emergence.yml
 </code></pre>
 <p>An example <code>docker run</code> command might look like this (depending on the selected VCS type):</p>
-<pre class="prettyprint"><code class="language-bash">docker run -v $HOST_DIR:/opt/emergence -it firstbird/emergence:latest \
+<pre class="prettyprint"><code class="language-bash">docker run -v $HOST_DIR:/opt/emergence -it fgrutsch/emergence:latest \
     --config &quot;/opt/emergence/run-config.yml&quot; \
     --vcs-type &quot;bitbucket-cloud&quot; \
     --vcs-api-host &quot;https://api.bitbucket.org/2.0&quot; \
@@ -138,9 +138,9 @@ Usage: emergence [options]
 </code></pre>
 <h2><a href="#coursier" name="coursier" class="anchor"><span class="anchor-link"></span></a>Coursier</h2>
 <p>To install eMERGEnce as an executable you can use coursier&rsquo;s <a href="https://get-coursier.io/docs/cli-install">install</a> command. The only thing you have to do is to run:</p>
-<p><code>cs install --contrib firstbird-emergence</code></p>
-<p>To get a list of available options run: <code>firstbird-emergence --help</code> and you should get the following output:</p>
-<pre><code>eMERGEnce 0.2.0
+<p><code>cs install --contrib fgrutsch-emergence</code></p>
+<p>To get a list of available options run: <code>fgrutsch-emergence --help</code> and you should get the following output:</p>
+<pre><code>eMERGEnce 0.2.1
 Usage: emergence [options]
   --usage  &lt;bool&gt;
         Print usage and exit
@@ -160,7 +160,7 @@ Usage: emergence [options]
         The name/path of the eMERGEnce config file inside the repository. Default: .emergence.yml
 </code></pre>
 <p>An example command might look like this (depending on the selected VCS type):</p>
-<pre class="prettyprint"><code class="language-bash">firstbird-emergence \
+<pre class="prettyprint"><code class="language-bash">fgrutsch-emergence \
     --config &quot;/opt/emergence/run-config.yml&quot; \
     --vcs-type &quot;bitbucket-cloud&quot; \
     --vcs-api-host &quot;https://api.bitbucket.org/2.0&quot; \
@@ -174,7 +174,7 @@ Usage: emergence [options]
 echo &quot;my-git-secret&quot;
 </code></pre>
 <div class="source-github">
-The source code for this page can be found <a href="https://github.com/firstbirdtech/emergence/tree/v0.2.0/docs/src/main/paradox/getting-started.md">here</a>.
+The source code for this page can be found <a href="https://github.com/fgrutsch/emergence/tree/v0.2.1/docs/src/main/paradox/getting-started.md">here</a>.
 </div>
 
 <div class="nav-next">
@@ -259,7 +259,7 @@ The source code for this page can be found <a href="https://github.com/firstbird
 <script type="text/javascript" src="lib/prettify/prettify.js"></script>
 <script type="text/javascript" src="lib/prettify/lang-scala.js"></script>
 <script type="text/javascript">jQuery(function(){window.prettyPrint && prettyPrint()});</script>
-<script type="text/javascript">jQuery(function(jq){initOldVersionWarnings(jq, '0.2.0', 'https://github.com/firstbirdtech/emergence')});</script>
+<script type="text/javascript">jQuery(function(jq){initOldVersionWarnings(jq, '0.2.1', 'https://github.com/fgrutsch/emergence')});</script>
 
 
 </html>

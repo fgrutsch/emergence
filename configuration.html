@@ -6,7 +6,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="description" content='docs'/>
-<link rel="canonical" href="https://github.com/firstbirdtech/emergenceconfiguration.html"/>
+<link rel="canonical" href="https://github.com/fgrutsch/emergenceconfiguration.html"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:100normal,100italic,300normal,300italic,400normal,400italic,500normal,500italic,700normal,700italic,900normal,900italicc" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="js/page.js"></script>
@@ -32,7 +32,7 @@
 <span class="home-icon">⌂</span>eMERGEnce
 </a>
 <div class="version-number">
-0.2.0
+0.2.1
 </div>
 </div>
 <div class="nav-toc">
@@ -72,7 +72,7 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <span class="home-icon">⌂</span>eMERGEnce
 </a>
 <div class="version-number">
-0.2.0
+0.2.1
 </div>
 </div>
 <div class="nav-toc">
@@ -111,17 +111,17 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <p>The run config is the main configuration needed to actually run eMERGEnce. This is the one that you have to specify using the <code>--config</code> option. In this file you specify the VCS repositories that you want to run emergence on, and optionally some default conditions/settings as well.</p>
 <p>The format of the file looks like this:</p>
 <pre class="prettyprint"><code class="language-yml">repositories:
-  - name: firstbirdtech/test-repo
+  - name: fgrutsch/test-repo
     conditions:
       - &quot;build-success-all&quot;
     merge:
       strategy: fast-forward
       close_source_branch: false
-  - name: firstbirdtech/test-repo-2
+  - name: fgrutsch/test-repo-2
 
 defaults:
   conditions:
-    - &quot;author == firstbird-ci&quot;
+    - &quot;author == ci-user&quot;
   merge:
     strategy: squash
     close_source_branch: true
@@ -153,7 +153,7 @@ merge:
 </ol>
 <p>For example if your <a href="#run-config">Run Config</a> looks like this:</p>
 <pre><code>repositories:
-  - name: firstbirdtech/my-repo
+  - name: fgrutsch/my-repo
     conditions:
       - &quot;build-success-all&quot;
     merge:
@@ -193,7 +193,7 @@ merge:
 </ul><div class="callout note "><div class="callout-title">Note</div>
 <p>Conditions are combined instead of overwritten!</p></div>
 <div class="source-github">
-The source code for this page can be found <a href="https://github.com/firstbirdtech/emergence/tree/v0.2.0/docs/src/main/paradox/configuration.md">here</a>.
+The source code for this page can be found <a href="https://github.com/fgrutsch/emergence/tree/v0.2.1/docs/src/main/paradox/configuration.md">here</a>.
 </div>
 
 <div class="nav-next">
@@ -278,7 +278,7 @@ The source code for this page can be found <a href="https://github.com/firstbird
 <script type="text/javascript" src="lib/prettify/prettify.js"></script>
 <script type="text/javascript" src="lib/prettify/lang-scala.js"></script>
 <script type="text/javascript">jQuery(function(){window.prettyPrint && prettyPrint()});</script>
-<script type="text/javascript">jQuery(function(jq){initOldVersionWarnings(jq, '0.2.0', 'https://github.com/firstbirdtech/emergence')});</script>
+<script type="text/javascript">jQuery(function(jq){initOldVersionWarnings(jq, '0.2.1', 'https://github.com/fgrutsch/emergence')});</script>
 
 
 </html>
