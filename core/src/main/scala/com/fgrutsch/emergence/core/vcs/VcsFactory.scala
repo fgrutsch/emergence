@@ -16,12 +16,12 @@
 
 package com.fgrutsch.emergence.core.vcs
 
-import com.fgrutsch.emergence.core._
+import cats.MonadThrow
 import com.fgrutsch.emergence.core.model.{Settings, VcsType}
 import com.fgrutsch.emergence.core.vcs.bitbucketcloud._
 import sttp.client3.SttpBackend
 
-final class VcsFactory[F[_]: MonadThrowable](implicit sttpBackend: SttpBackend[F, Any]) {
+final class VcsFactory[F[_]: MonadThrow](implicit sttpBackend: SttpBackend[F, Any]) {
 
   def getVcs(settings: Settings): VcsAlg[F] = settings.vcsType match {
     case VcsType.BitbucketCloud => bitbucketCloud(settings.vcs)

@@ -1,6 +1,7 @@
 package testutil
 
-import cats.data.StateT
+import cats.data.Kleisli
+import cats.effect.{IO, Ref}
 import org.typelevel.log4cats.Logger
 
 class MockLogger extends Logger[Eff] {
@@ -35,5 +36,5 @@ class MockLogger extends Logger[Eff] {
     impl(None, message)
 
   def impl(maybeThrowable: Option[Throwable], message: String): Eff[Unit] =
-    StateT.modify(_.addLog(maybeThrowable, message))
+    Kleisli[IO, Ref[IO, TestState], Unit](_.update(_.addLog(maybeThrowable, message)))
 }

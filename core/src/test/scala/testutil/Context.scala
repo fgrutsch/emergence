@@ -1,7 +1,7 @@
 package testutil
 
 import cats.data.NonEmptyList
-import cats.effect.{ContextShift, IO, Timer}
+import cats.effect.unsafe.IORuntime
 import cats.syntax.all._
 import com.fgrutsch.emergence.core.app._
 import com.fgrutsch.emergence.core.condition.{ConditionOperator, ConditionValue, _}
@@ -14,13 +14,11 @@ import com.fgrutsch.emergence.core.vcs.model.{MergeStrategy, Repository}
 import com.fgrutsch.emergence.core.vcs.{VcsSettings, _}
 import sttp.model.Uri._
 
-import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
 private[testutil] trait Context {
 
-  implicit val contextShift: ContextShift[IO] = IO.contextShift(ExecutionContext.global)
-  implicit val timer: Timer[IO]               = IO.timer(ExecutionContext.global)
+  implicit val runtime = IORuntime.global
 
   implicit val settings = Settings(
     RunConfig(

@@ -21,7 +21,7 @@ lazy val commonSettings = Seq(
     "",
     url("https://github.com/fgrutsch/emergence/graphs/contributors")
   ),
-  scalaVersion := "2.13.5",
+  scalaVersion := "2.13.6",
   scalacOptions ++= Seq(
     "-deprecation",
     "-encoding",
@@ -65,7 +65,7 @@ lazy val core = project
   )
   .settings(
     dockerBaseImage := "adoptopenjdk:11",
-    Docker / packageName := s"fgrutsch/emergence",
+    Docker / packageName := "fgrutsch/emergence",
     dockerUpdateLatest := true
   )
 

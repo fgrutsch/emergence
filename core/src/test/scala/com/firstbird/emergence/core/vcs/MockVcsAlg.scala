@@ -1,6 +1,7 @@
 package com.fgrutsch.emergence.core.vcs
 
-import cats.data.StateT
+import cats.data.Kleisli
+import cats.effect.{IO, Ref}
 import com.fgrutsch.emergence.core.vcs.model._
 import testutil._
 
@@ -31,20 +32,20 @@ class MockVcsAlg extends VcsAlg[Eff] {
       Author("fgrutsch")
     )
 
-    StateT.pure(pr1 :: pr2 :: pr3 :: Nil)
+    Kleisli.pure(pr1 :: pr2 :: pr3 :: Nil)
   }
 
   override def listBuildStatuses(repo: Repository, number: PullRequestNumber): Eff[List[BuildStatus]] = {
     number match {
       case PullRequestNumber(1) =>
         val bs = BuildStatus(BuildStatusName("Build and Test"), BuildStatusState.Success)
-        StateT.pure(bs :: Nil)
+        Kleisli.pure(bs :: Nil)
       case PullRequestNumber(2) =>
         val bs = BuildStatus(BuildStatusName("Build and Test"), BuildStatusState.Failed)
-        StateT.pure(bs :: Nil)
+        Kleisli.pure(bs :: Nil)
       case PullRequestNumber(3) =>
         val bs = BuildStatus(BuildStatusName("Build and Test"), BuildStatusState.Success)
-        StateT.pure(bs :: Nil)
+        Kleisli.pure(bs :: Nil)
       case _ =>
         throw new IllegalArgumentException(s"listBuildStatuses for PR #${number} not mocked!!!")
     }
@@ -56,19 +57,19 @@ class MockVcsAlg extends VcsAlg[Eff] {
       mergeStrategy: MergeStrategy,
       closeSourceBranch: Boolean): Eff[Unit] = {
     val pr = TestState.MergedPr(number, mergeStrategy, closeSourceBranch)
-    StateT.modify(_.addMergedPr(pr))
+    Kleisli[IO, Ref[IO, TestState], Unit](_.update(_.addMergedPr(pr)))
   }
 
   override def mergeCheck(repo: Repository, number: PullRequestNumber): Eff[MergeCheck] = {
     number match {
-      case PullRequestNumber(1) | PullRequestNumber(2) => StateT.pure(MergeCheck.Accept)
-      case PullRequestNumber(3)                        => StateT.pure(MergeCheck.Decline("failed"))
+      case PullRequestNumber(1) | PullRequestNumber(2) => Kleisli.pure(MergeCheck.Accept)
+      case PullRequestNumber(3)                        => Kleisli.pure(MergeCheck.Decline("failed"))
       case _                                           => throw new IllegalArgumentException(s"mergeCheck for PR #${number} not mocked!!!")
     }
   }
 
   override def findEmergenceConfigFile(repo: Repository): Eff[Option[RepoFile]] = {
-    StateT.inspect(_.repoEmergenceConfigFile)
+    Kleisli[IO, Ref[IO, TestState], Option[RepoFile]](_.get.map(_.repoEmergenceConfigFile))
   }
 
 }

@@ -16,8 +16,8 @@
 
 package com.fgrutsch.emergence.core.vcs.bitbucketcloud
 
+import cats.MonadThrow
 import cats.syntax.all._
-import com.fgrutsch.emergence.core._
 import com.fgrutsch.emergence.core.vcs._
 import com.fgrutsch.emergence.core.vcs.bitbucketcloud.DiffStatResponse._
 import com.fgrutsch.emergence.core.vcs.bitbucketcloud.Encoding._
@@ -38,7 +38,7 @@ object BitbucketCloudVcs {
 
 }
 
-final class BitbucketCloudVcs[F[_]](implicit backend: SttpBackend[F, Any], settings: VcsSettings, F: MonadThrowable[F])
+final class BitbucketCloudVcs[F[_]](implicit backend: SttpBackend[F, Any], settings: VcsSettings, F: MonadThrow[F])
     extends VcsAlg[F] {
 
   override def listPullRequests(repo: Repository): F[List[PullRequest]] = {

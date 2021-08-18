@@ -52,7 +52,7 @@ object CliOptions {
 
   implicit val pathParser: ArgParser[Path] = SimpleArgParser.from[Path]("path") { s =>
     Try(Paths.get(s))
-      .flatMap(path => Try(path.toFile().isFile()).map(isFile => (path, isFile)))
+      .flatMap(path => Try(path.toFile.isFile).map(isFile => (path, isFile)))
       .toEither
       .leftMap(t => MalformedValue("Path", s"Unable to check if path is a file: ${t.getMessage}"))
       .flatMap { case (path, isFile) =>

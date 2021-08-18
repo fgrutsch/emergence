@@ -16,10 +16,10 @@
 
 package com.fgrutsch.emergence.core.merge
 
+import cats.MonadThrow
 import cats.data.Validated.{Invalid, Valid}
-import cats.effect.Timer
+import cats.effect.kernel.{Concurrent, Temporal}
 import cats.syntax.all._
-import com.fgrutsch.emergence.core._
 import com.fgrutsch.emergence.core.condition.{ConditionMatcherAlg, Input}
 import com.fgrutsch.emergence.core.configuration.{EmergenceConfig, MergeConfig}
 import com.fgrutsch.emergence.core.utils.logging._
@@ -28,12 +28,11 @@ import com.fgrutsch.emergence.core.vcs.model.{MergeCheck, PullRequest, Repositor
 import fs2.Stream
 import org.typelevel.log4cats.Logger
 
-class MergeAlg[F[_]: Timer](implicit
+class MergeAlg[F[_]: Temporal: Concurrent](implicit
     logger: Logger[F],
     vcsAlg: VcsAlg[F],
     conditionMatcherAlg: ConditionMatcherAlg[F],
-    streamCompiler: Stream.Compiler[F, F],
-    F: MonadThrowable[F]) {
+    F: MonadThrow[F]) {
 
   def mergePullRequests(repo: Repository, emergenceConfig: EmergenceConfig): F[Unit] = {
     Stream

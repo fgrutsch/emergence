@@ -16,11 +16,12 @@
 
 package com.fgrutsch.emergence.core.app
 
+import cats.MonadThrow
 import cats.effect.ExitCode
+import cats.effect.kernel.Concurrent
 import cats.instances.all._
 import cats.syntax.all._
 import com.fgrutsch.emergence.BuildInfo
-import com.fgrutsch.emergence.core._
 import com.fgrutsch.emergence.core.configuration.EmergenceConfigResolverAlg
 import com.fgrutsch.emergence.core.configuration.RunConfig.RepositoryConfig
 import com.fgrutsch.emergence.core.merge.MergeAlg
@@ -29,13 +30,12 @@ import com.fgrutsch.emergence.core.utils.logging._
 import fs2.Stream
 import org.typelevel.log4cats.Logger
 
-class EmergenceAlg[F[_]](implicit
+class EmergenceAlg[F[_]: Concurrent](implicit
     settings: Settings,
     logger: Logger[F],
     configResolverAlg: EmergenceConfigResolverAlg[F],
     mergeAlg: MergeAlg[F],
-    streamCompiler: Stream.Compiler[F, F],
-    F: MonadThrowable[F]) {
+    F: MonadThrow[F]) {
 
   private val banner = {
     """

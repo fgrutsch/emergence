@@ -16,17 +16,17 @@
 
 package com.fgrutsch.emergence.core.configuration
 
+import cats.MonadThrow
 import cats.effect.Sync
 import cats.kernel.Semigroup
 import cats.syntax.all._
-import com.fgrutsch.emergence.core._
 import com.fgrutsch.emergence.core.configuration._
 import com.fgrutsch.emergence.core.vcs.VcsAlg
 import com.fgrutsch.emergence.core.vcs.model.{RepoFile, Repository}
 
 class EmergenceConfigResolverAlg[F[_]](runConfig: RunConfig)(implicit
     vcsAlg: VcsAlg[F],
-    F: Sync[F] with MonadThrowable[F]) {
+    F: Sync[F] with MonadThrow[F]) {
 
   def loadAndCombine(repo: Repository, runEmergenceConfig: Option[EmergenceConfig]): F[EmergenceConfig] = {
     for {

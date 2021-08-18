@@ -29,11 +29,11 @@ import sttp.client3.asynchttpclient.cats.AsyncHttpClientCatsBackend
 
 object EmergenceContext {
 
-  def apply[F[_]: ConcurrentEffect: ContextShift: Timer](options: CliOptions): Resource[F, EmergenceAlg[F]] = {
+  def apply[F[_]: Async](options: CliOptions): Resource[F, EmergenceAlg[F]] = {
     for {
-      implicit0(logger: Logger[F])                <- Resource.liftF(Slf4jLogger.create[F])
+      implicit0(logger: Logger[F])                <- Resource.liftK(Slf4jLogger.create[F])
       implicit0(sttpBackend: SttpBackend[F, Any]) <- AsyncHttpClientCatsBackend.resource[F]()
-      implicit0(settings: Settings)               <- Resource.liftF(Settings.from[F](options))
+      implicit0(settings: Settings)               <- Resource.liftK(Settings.from[F](options))
     } yield {
       implicit val vcsFactory          = new VcsFactory
       implicit val vcsAlg              = vcsFactory.getVcs(settings)
