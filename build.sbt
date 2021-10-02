@@ -1,5 +1,5 @@
-ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.5.0"
-ThisBuild / dynverSeparator                                := "-" // Default uses '+' which is not valid for docker tags
+ThisBuild / scalafixDependencies += Dependencies.organizeimports
+ThisBuild / dynverSeparator := "-" // Default uses '+' which is not valid for docker tags
 
 addCommandAlias("codeFmt", ";headerCreate;scalafmtAll;scalafmtSbt;scalafixAll")
 addCommandAlias("codeVerify", ";scalafmtCheckAll;scalafmtSbtCheck;scalafixAll --check;headerCheck")
