@@ -22,6 +22,7 @@ import com.fgrutsch.emergence.core.vcs._
 import com.fgrutsch.emergence.core.vcs.bitbucketcloud.DiffStatResponse._
 import com.fgrutsch.emergence.core.vcs.bitbucketcloud.Encoding._
 import com.fgrutsch.emergence.core.vcs.model._
+import io.circe.JsonObject
 import sttp.client3._
 import sttp.client3.circe._
 import sttp.model.HeaderNames.Location
@@ -31,9 +32,7 @@ object BitbucketCloudVcs {
 
   private val asRedirect = {
     ignore
-      .mapWithMetadata { (s, m) =>
-        if (m.isRedirect) Right(s) else Left(s)
-      }
+      .mapWithMetadata { (s, m) => Either.cond(m.isRedirect, s, s) }
   }
 
 }
@@ -79,7 +78,7 @@ final class BitbucketCloudVcs[F[_]](implicit backend: SttpBackend[F, Any], setti
       .post(uri)
       .withAuthentication()
       .body(body)
-      .response(asJson[PullRequest])
+      .response(asJson[JsonObject]) // Verifies 2xx response
       .send(backend)
       .flatMap(r => F.fromEither(r.body.map(_ => ())))
   }
@@ -97,8 +96,8 @@ final class BitbucketCloudVcs[F[_]](implicit backend: SttpBackend[F, Any], setti
     val parseRedirectUri = (response: Response[Either[Unit, Unit]]) => {
       response
         .header(Location)
-        .toRight(s"Header expected: '${Location}'")
-        .flatMap(uri => Uri.parse(uri).leftMap(_ => s"Not a valid URI: '${uri}'"))
+        .toRight(s"Header expected: '$Location'")
+        .flatMap(uri => Uri.parse(uri).leftMap(_ => s"Not a valid URI: '$uri'"))
     }
 
     for {
@@ -106,7 +105,7 @@ final class BitbucketCloudVcs[F[_]](implicit backend: SttpBackend[F, Any], setti
       newUrl <- F.fromEither(parseRedirectUri(resp1).leftMap(new IllegalArgumentException(_)))
       resp2  <- basicRequest.get(newUrl).withAuthentication().response(asJson[Page[DiffStatResponse]]).send(backend)
       result <- F.fromEither(resp2.body)
-    } yield MergeCheck.cond(result.items.forall(_.isMergeable()), s"PR has merge conflicts.")
+    } yield MergeCheck.cond(result.items.forall(_.isMergeable()), "PR has merge conflicts.")
   }
 
   override def findEmergenceConfigFile(repo: Repository): F[Option[RepoFile]] = {
