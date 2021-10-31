@@ -3,8 +3,8 @@ import sbt._
 object Dependencies {
 
   private val circeVersion      = "0.14.1"
-  private val fs2Version        = "3.1.5"
-  private val sttpClientVersion = "3.3.16"
+  private val fs2Version        = "3.1.6"
+  private val sttpClientVersion = "3.3.15"
 
   val core: Seq[ModuleID] = Seq(
     "ch.qos.logback"                 % "logback-classic"                % "1.2.6",
