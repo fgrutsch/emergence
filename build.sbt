@@ -21,7 +21,7 @@ lazy val commonSettings = Seq(
     "",
     url("https://github.com/fgrutsch/emergence/graphs/contributors")
   ),
-  scalaVersion := "2.13.6",
+  scalaVersion := "2.13.7",
   scalacOptions ++= Seq(
     "-deprecation",
     "-encoding",
