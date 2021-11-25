@@ -1,9 +1,8 @@
 package com.fgrutsch.emergence.core.vcs.model
 
-import cats.syntax.all._
+import cats.syntax.all.*
 import com.fgrutsch.emergence.core.vcs.model.Repository
-import io.circe.DecodingFailure
-import io.circe.literal._
+import io.circe.{DecodingFailure, Json}
 import org.scalatest.prop.TableDrivenPropertyChecks
 import testutil.BaseSpec
 
@@ -17,15 +16,15 @@ class RepositorySpec extends BaseSpec with TableDrivenPropertyChecks {
     )
 
     forAll(table) { case (input, expected) =>
-      val jsonInput = json"$input"
+      val jsonInput = Json.fromString(input)
       val result    = jsonInput.as[Repository]
-      result mustBe expected
+      result mustBe { expected }
     }
   }
 
   test("toString formats correctly") {
     val repo = Repository("repo-owner", "repo-name")
-    repo.toString mustBe "repo-owner/repo-name"
+    repo.toString mustBe { "repo-owner/repo-name" }
   }
 
 }

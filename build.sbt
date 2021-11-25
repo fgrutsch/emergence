@@ -21,19 +21,17 @@ lazy val commonSettings = Seq(
     "",
     url("https://github.com/fgrutsch/emergence/graphs/contributors")
   ),
-  scalaVersion := "2.13.6",
+  scalaVersion := "3.1.0",
   scalacOptions ++= Seq(
     "-deprecation",
     "-encoding",
     "utf-8",
-    "-explaintypes",
+    "-explain-types",
     "-feature",
     "-language:higherKinds",
     "-unchecked",
-    "-Xcheckinit",
-    "-Xfatal-warnings",
-    "-Wdead-code",
-    "-Wunused:imports"
+    "-Ysafe-init",
+    "-Xfatal-warnings"
   ),
   headerLicense     := Some(HeaderLicense.ALv2("2021", "Emergence contributors")),
   semanticdbEnabled := true,
@@ -48,20 +46,29 @@ lazy val root = project
 
 lazy val core = project
   .in(file("core"))
-  .enablePlugins(BuildInfoPlugin, JavaAppPackaging, DockerPlugin)
+  .enablePlugins(JavaAppPackaging, DockerPlugin)
   .settings(commonSettings)
   .settings(
     name := "core",
-    libraryDependencies ++= Dependencies.core,
-    addCompilerPlugin(Dependencies.betterMonadicFor)
+    libraryDependencies ++= Dependencies.core
   )
   .settings(
-    buildInfoPackage := organization.value,
-    buildInfoKeys := Seq[BuildInfoKey](
-      version,
-      "appName" -> "eMERGEnce",
-      "cliName" -> "emergence"
-    )
+    Compile / sourceGenerators += Def.task {
+      val directory = organization.value.split('.').mkString("/")
+      val pkg       = organization.value
+      val file      = (Compile / sourceManaged).value / directory / "BuildInfo.scala"
+
+      IO.write(
+        file,
+        s"""
+        |package $pkg
+        |
+        |object BuildInfo {
+        |  val Version: String = "${version.value}"
+        |}""".stripMargin
+      )
+      Seq(file)
+    }.taskValue
   )
   .settings(
     dockerBaseImage      := "adoptopenjdk:11",

@@ -29,7 +29,7 @@ final private[bitbucketcloud] case class DiffStatResponse(status: String) {
 
 private[bitbucketcloud] object DiffStatResponse {
 
-  implicit val diffStatsResponseDecoder: Decoder[DiffStatResponse] = Decoder.instance { c =>
+  given Decoder[DiffStatResponse] = Decoder.instance { c =>
     c.downField("status").as[String].map(DiffStatResponse(_))
   }
 

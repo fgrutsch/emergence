@@ -16,8 +16,7 @@
 
 package com.fgrutsch.emergence.core.vcs.model
 
-import io.circe.Codec
-import io.circe.generic.extras.semiauto.deriveUnwrappedCodec
+import io.circe.{Codec, Decoder, Encoder}
 
 final case class BuildStatusName(underlying: String) extends AnyVal {
   override def toString: String = underlying
@@ -25,6 +24,9 @@ final case class BuildStatusName(underlying: String) extends AnyVal {
 
 object BuildStatusName {
 
-  implicit val buildStatusCodec: Codec[BuildStatusName] = deriveUnwrappedCodec
+  given Codec[BuildStatusName] = Codec.from(
+    Decoder.decodeString.map(BuildStatusName(_)),
+    Encoder.encodeString.contramap(_.underlying)
+  )
 
 }

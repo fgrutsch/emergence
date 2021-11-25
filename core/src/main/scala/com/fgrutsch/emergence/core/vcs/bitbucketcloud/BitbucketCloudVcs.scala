@@ -17,14 +17,14 @@
 package com.fgrutsch.emergence.core.vcs.bitbucketcloud
 
 import cats.MonadThrow
-import cats.syntax.all._
-import com.fgrutsch.emergence.core.vcs._
-import com.fgrutsch.emergence.core.vcs.bitbucketcloud.DiffStatResponse._
-import com.fgrutsch.emergence.core.vcs.bitbucketcloud.Encoding._
-import com.fgrutsch.emergence.core.vcs.model._
+import cats.syntax.all.*
+import com.fgrutsch.emergence.core.vcs.*
+import com.fgrutsch.emergence.core.vcs.bitbucketcloud.DiffStatResponse.*
+import com.fgrutsch.emergence.core.vcs.bitbucketcloud.Encoding.given
+import com.fgrutsch.emergence.core.vcs.model.*
 import io.circe.JsonObject
-import sttp.client3._
-import sttp.client3.circe._
+import sttp.client3.*
+import sttp.client3.circe.*
 import sttp.model.HeaderNames.Location
 import sttp.model.Uri
 
@@ -37,7 +37,7 @@ object BitbucketCloudVcs {
 
 }
 
-final class BitbucketCloudVcs[F[_]](implicit backend: SttpBackend[F, Any], settings: VcsSettings, F: MonadThrow[F])
+final class BitbucketCloudVcs[F[_]](using backend: SttpBackend[F, Any], settings: VcsSettings, F: MonadThrow[F])
     extends VcsAlg[F] {
 
   override def listPullRequests(repo: Repository): F[List[PullRequest]] = {
@@ -120,7 +120,7 @@ final class BitbucketCloudVcs[F[_]](implicit backend: SttpBackend[F, Any], setti
       .map(_.body.map(RepoFile(_)))
   }
 
-  implicit private class RequestOps(request: Request[Either[String, String], Any]) {
+  extension (request: Request[Either[String, String], Any]) {
     def withAuthentication() = request.auth.basic(settings.user.login, settings.user.secret)
   }
 

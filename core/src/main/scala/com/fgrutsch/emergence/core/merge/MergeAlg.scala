@@ -19,16 +19,16 @@ package com.fgrutsch.emergence.core.merge
 import cats.MonadThrow
 import cats.data.Validated.{Invalid, Valid}
 import cats.effect.kernel.{Concurrent, Temporal}
-import cats.syntax.all._
+import cats.syntax.all.*
 import com.fgrutsch.emergence.core.condition.{ConditionMatcherAlg, Input}
 import com.fgrutsch.emergence.core.configuration.{EmergenceConfig, MergeConfig}
-import com.fgrutsch.emergence.core.utils.logging._
+import com.fgrutsch.emergence.core.utils.logging.*
 import com.fgrutsch.emergence.core.vcs.VcsAlg
 import com.fgrutsch.emergence.core.vcs.model.{MergeCheck, PullRequest, Repository}
 import fs2.Stream
 import org.typelevel.log4cats.Logger
 
-class MergeAlg[F[_]: Temporal: Concurrent](implicit
+class MergeAlg[F[_]: Temporal: Concurrent](using
     logger: Logger[F],
     vcsAlg: VcsAlg[F],
     conditionMatcherAlg: ConditionMatcherAlg[F],

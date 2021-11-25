@@ -18,7 +18,7 @@ package com.fgrutsch.emergence.core.model
 
 import cats.Functor
 import cats.effect.Sync
-import cats.syntax.all._
+import cats.syntax.all.*
 import com.fgrutsch.emergence.core.app.CliOptions
 import com.fgrutsch.emergence.core.configuration.RunConfig
 import com.fgrutsch.emergence.core.model.VcsType
@@ -34,7 +34,7 @@ final case class Settings(
 
 object Settings {
 
-  def from[F[_]: Functor](options: CliOptions)(implicit F: Sync[F]): F[Settings] = {
+  def from[F[_]: Functor](options: CliOptions)(using F: Sync[F]): F[Settings] = {
     val vcsSettings = F.delay {
       val secret = Process(options.gitAskPass.toString).!!.trim
       val user   = VcsSettings.VcsUser(options.vcsLogin, secret)

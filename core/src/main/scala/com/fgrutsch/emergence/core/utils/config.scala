@@ -18,11 +18,11 @@ package com.fgrutsch.emergence.core.utils
 
 import io.circe.Decoder
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.util.{Failure, Success, Try}
 
 object config {
-  implicit val finiteDurationDecoder: Decoder[FiniteDuration] = Decoder.decodeString
+  given Decoder[FiniteDuration] = Decoder.decodeString
     .map(s => Try(Duration(s)))
     .flatMap {
       case Success(v: FiniteDuration) => Decoder.const(v)

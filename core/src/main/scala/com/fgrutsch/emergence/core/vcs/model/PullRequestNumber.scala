@@ -16,13 +16,15 @@
 
 package com.fgrutsch.emergence.core.vcs.model
 
-import io.circe.Codec
-import io.circe.generic.extras.semiauto.deriveUnwrappedCodec
+import io.circe.{Codec, Decoder, Encoder}
 
 final case class PullRequestNumber(underlying: Int) extends AnyVal {
   override def toString: String = underlying.toString
 }
 
 object PullRequestNumber {
-  implicit val pullRequestNumberCodec: Codec[PullRequestNumber] = deriveUnwrappedCodec
+  given Codec[PullRequestNumber] = Codec.from(
+    Decoder.decodeInt.map(PullRequestNumber(_)),
+    Encoder.encodeInt.contramap(_.underlying)
+  )
 }

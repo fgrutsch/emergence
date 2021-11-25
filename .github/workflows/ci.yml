@@ -39,12 +39,14 @@ jobs:
             ${{ runner.os }}-sbt-${{ hashFiles('project/build.properties') }}-${{ hashFiles('**/*.sbt') }}
           
       - name: Build project
-        run: sbt clean codeVerify coverage +test coverageReport coverageAggregate
+        # coverage not possible with scala 3 yet
+        # run: sbt clean codeVerify coverage +test coverageReport coverageAggregate 
+        run: sbt clean codeVerify +test
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          fail_ci_if_error: true
+      # - name: Upload coverage to Codecov
+      #   uses: codecov/codecov-action@v1
+      #   with:
+      #     fail_ci_if_error: true
 
 
   publish:

@@ -1,6 +1,6 @@
 package testutil
 
-import com.fgrutsch.emergence.core.vcs.model._
+import com.fgrutsch.emergence.core.vcs.model.*
 
 object TestState {
 

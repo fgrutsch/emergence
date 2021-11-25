@@ -1,6 +1,6 @@
 package com.fgrutsch.emergence.core.condition
 
-import cats.syntax.all._
+import cats.syntax.all.*
 import com.fgrutsch.emergence.core.condition.Condition.BuildSuccessAll
 import org.scalatest.prop.TableDrivenPropertyChecks
 import testutil.BaseSpec
@@ -22,7 +22,7 @@ class ConditionSpec extends BaseSpec with TableDrivenPropertyChecks {
     )
 
     forAll(table) { case (input, expected) =>
-      Condition.parse(input) mustBe expected
+      Condition.parse(input) mustBe { expected }
     }
   }
 

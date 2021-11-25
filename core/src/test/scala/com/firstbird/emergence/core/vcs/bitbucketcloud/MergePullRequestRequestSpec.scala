@@ -1,9 +1,9 @@
 package com.fgrutsch.emergence.core.vcs.bitbucketcloud
 
-import com.fgrutsch.emergence.core.vcs.bitbucketcloud.MergePullRequestRequest._
+import com.fgrutsch.emergence.core.vcs.bitbucketcloud.MergePullRequestRequest.*
 import com.fgrutsch.emergence.core.vcs.model.MergeStrategy
-import io.circe.literal._
-import io.circe.syntax._
+import io.circe.parser.*
+import io.circe.syntax.*
 import testutil.BaseSpec
 
 class MergePullRequestRequestSpec extends BaseSpec {
@@ -13,10 +13,12 @@ class MergePullRequestRequestSpec extends BaseSpec {
 
     val result = input.asJson
 
-    result mustBe json"""{
+    result mustBe {
+      parse("""{
         "close_source_branch": true,
         "merge_strategy": "squash"
-    }"""
+    }""").value
+    }
   }
 
 }

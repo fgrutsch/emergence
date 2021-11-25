@@ -16,7 +16,7 @@
 
 package com.fgrutsch.emergence.core.condition
 
-import cats.syntax.all._
+import cats.syntax.all.*
 
 sealed abstract class ConditionOperator(val sign: String) {
   override def toString: String = sign
@@ -35,7 +35,7 @@ object ConditionOperator {
     }
   }
 
-  def matches(condition: Condition with Condition.Matchable, input: String): MatchResult = {
+  def matches(condition: Condition & Condition.Matchable, input: String): MatchResult = {
     val operator = condition.operator
     val value    = condition.value
 

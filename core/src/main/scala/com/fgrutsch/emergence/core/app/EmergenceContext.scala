@@ -16,30 +16,31 @@
 
 package com.fgrutsch.emergence.core.app
 
-import cats.effect.{Resource, _}
+import cats.effect.{Resource, *}
 import com.fgrutsch.emergence.core.condition.ConditionMatcherAlg
 import com.fgrutsch.emergence.core.configuration.EmergenceConfigResolverAlg
 import com.fgrutsch.emergence.core.merge.MergeAlg
 import com.fgrutsch.emergence.core.model.Settings
-import com.fgrutsch.emergence.core.vcs._
+import com.fgrutsch.emergence.core.vcs.*
 import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.slf4j.Slf4jLogger
-import sttp.client3._
+import sttp.client3.*
 import sttp.client3.asynchttpclient.cats.AsyncHttpClientCatsBackend
 
 object EmergenceContext {
 
   def apply[F[_]: Async](options: CliOptions): Resource[F, EmergenceAlg[F]] = {
     for {
-      implicit0(logger: Logger[F])                <- Resource.liftK(Slf4jLogger.create[F])
-      implicit0(sttpBackend: SttpBackend[F, Any]) <- AsyncHttpClientCatsBackend.resource[F]()
-      implicit0(settings: Settings)               <- Resource.liftK(Settings.from[F](options))
+      given Logger[F]           <- Resource.liftK(Slf4jLogger.create[F])
+      given SttpBackend[F, Any] <- AsyncHttpClientCatsBackend.resource[F]()
+      given Settings            <- Resource.liftK(Settings.from[F](options))
     } yield {
-      implicit val vcsFactory          = new VcsFactory
-      implicit val vcsAlg              = vcsFactory.getVcs(settings)
-      implicit val configResolverAlg   = new EmergenceConfigResolverAlg[F](settings.config)
-      implicit val conditionMatcherAlg = new ConditionMatcherAlg[F]
-      implicit val mergeAlg            = new MergeAlg[F]
+      val settings                        = summon[Settings]
+      val vcsFactory                      = new VcsFactory
+      given VcsAlg[F]                     = vcsFactory.getVcs(settings)
+      given EmergenceConfigResolverAlg[F] = new EmergenceConfigResolverAlg[F](settings.config)
+      given ConditionMatcherAlg[F]        = new ConditionMatcherAlg[F]
+      given MergeAlg[F]                   = new MergeAlg[F]
       new EmergenceAlg
     }
   }

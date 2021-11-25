@@ -16,7 +16,7 @@
 
 package com.fgrutsch.emergence.core.vcs
 
-import com.fgrutsch.emergence.core.vcs.model._
+import com.fgrutsch.emergence.core.vcs.model.*
 
 trait VcsAlg[F[_]] {
 

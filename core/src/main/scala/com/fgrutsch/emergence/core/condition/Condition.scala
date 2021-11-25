@@ -16,7 +16,7 @@
 
 package com.fgrutsch.emergence.core.condition
 
-import cats.syntax.all._
+import cats.syntax.all.*
 import io.circe.Decoder
 
 sealed trait Condition
@@ -42,7 +42,7 @@ object Condition {
       .toRight(s"Not a valid condition: '$value'")
   }
 
-  private def parseMatchableCondition(values: Array[String]): Option[Condition with Matchable] = {
+  private def parseMatchableCondition(values: Array[String]): Option[Condition & Matchable] = {
     values match {
       case Array("author", ConditionOperator(operator), v)        => Author(operator, ConditionValue(v)).some
       case Array("source-branch", ConditionOperator(operator), v) => SourceBranch(operator, ConditionValue(v)).some
@@ -58,7 +58,7 @@ object Condition {
     }
   }
 
-  implicit val conditionDecoder: Decoder[Condition] = Decoder.decodeString.map(parse(_)).flatMap {
+  given Decoder[Condition] = Decoder.decodeString.map(parse(_)).flatMap {
     case Left(f)      => Decoder.failedWithMessage(s"Invalid condition format: $f")
     case Right(value) => Decoder.const(value)
   }

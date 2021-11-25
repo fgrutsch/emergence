@@ -17,10 +17,10 @@
 package com.fgrutsch.emergence.core.condition
 
 import cats.data.NonEmptyList
-import cats.syntax.all._
+import cats.syntax.all.*
 import com.fgrutsch.emergence.core.condition.Condition
-import com.fgrutsch.emergence.core.condition.ConditionMatcher.syntax._
-import com.fgrutsch.emergence.core.vcs.model._
+import com.fgrutsch.emergence.core.condition.ConditionMatcher.syntax.*
+import com.fgrutsch.emergence.core.vcs.model.*
 
 class ConditionMatcherAlg[F[_]] {
 
@@ -45,7 +45,7 @@ class ConditionMatcherAlg[F[_]] {
     }
   }
 
-  implicit private def buildSuccessAllMatcher: ConditionMatcher[Condition.BuildSuccessAll.type, List[BuildStatus]] = {
+  private given ConditionMatcher[Condition.BuildSuccessAll.type, List[BuildStatus]] = {
     case (condition, Nil) => "No build statuses. At least one required for this condition.".invalidNel
     case (condiition, input) =>
       input
@@ -57,13 +57,13 @@ class ConditionMatcherAlg[F[_]] {
         .map(_ => ())
   }
 
-  implicit private def authorMatcher: ConditionMatcher[Condition.Author, Author] =
+  private given ConditionMatcher[Condition.Author, Author] =
     (condition, input) => ConditionOperator.matches(condition, input.underlying)
 
-  implicit private def sourceBranchNameMatcher: ConditionMatcher[Condition.SourceBranch, BranchName] =
+  private given ConditionMatcher[Condition.SourceBranch, BranchName] =
     (condition, input) => ConditionOperator.matches(condition, input.underlying)
 
-  implicit private def targetBranchNameMatcher: ConditionMatcher[Condition.TargetBranch, BranchName] =
+  private given ConditionMatcher[Condition.TargetBranch, BranchName] =
     (condition, input) => ConditionOperator.matches(condition, input.underlying)
 
 }

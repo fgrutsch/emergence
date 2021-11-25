@@ -1,7 +1,7 @@
 package com.fgrutsch.emergence.core.app
 
-import com.fgrutsch.emergence.core.vcs.model._
-import testutil._
+import com.fgrutsch.emergence.core.vcs.model.*
+import testutil.*
 
 class EmergenceAlgSpec extends BaseSpec {
 
@@ -13,9 +13,11 @@ class EmergenceAlgSpec extends BaseSpec {
       .unsafeRunSync()
 
     // PR #1 matches conditions and mergeChecks, #2 and #3 not
-    result.mergedPrs mustBe List(
-      TestState.MergedPr(PullRequestNumber(1), MergeStrategy.MergeCommit, false)
-    )
+    result.mergedPrs mustBe {
+      List(
+        TestState.MergedPr(PullRequestNumber(1), MergeStrategy.MergeCommit, false)
+      )
+    }
   }
 
 }

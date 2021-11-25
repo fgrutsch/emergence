@@ -2,25 +2,26 @@ package testutil
 
 import cats.data.NonEmptyList
 import cats.effect.unsafe.IORuntime
-import cats.syntax.all._
-import com.fgrutsch.emergence.core.app._
-import com.fgrutsch.emergence.core.condition.{ConditionOperator, ConditionValue, _}
+import cats.syntax.all.*
+import com.fgrutsch.emergence.core.app.*
+import com.fgrutsch.emergence.core.condition.{ConditionOperator, ConditionValue, *}
 import com.fgrutsch.emergence.core.configuration.RunConfig.RepositoryConfig
-import com.fgrutsch.emergence.core.configuration.{EmergenceConfig, MergeConfig, _}
+import com.fgrutsch.emergence.core.configuration.{EmergenceConfig, MergeConfig, *}
 import com.fgrutsch.emergence.core.merge.MergeAlg
 import com.fgrutsch.emergence.core.model.{Settings, VcsType}
 import com.fgrutsch.emergence.core.vcs.VcsSettings.VcsUser
 import com.fgrutsch.emergence.core.vcs.model.{MergeStrategy, Repository}
-import com.fgrutsch.emergence.core.vcs.{VcsSettings, _}
-import sttp.model.Uri._
+import com.fgrutsch.emergence.core.vcs.{VcsSettings, *}
+import org.typelevel.log4cats.Logger
+import sttp.model.Uri.*
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 private[testutil] trait Context {
 
-  implicit val runtime = IORuntime.global
+  given IORuntime = IORuntime.global
 
-  implicit val settings = Settings(
+  given settings: Settings = Settings(
     RunConfig(
       NonEmptyList.one(
         RepositoryConfig(Repository("fgrutsch", "test"), none)
@@ -45,13 +46,13 @@ private[testutil] trait Context {
     )
   )
 
-  implicit val vcsSettings = settings.vcs
+  given vcsSettings: VcsSettings = settings.vcs
 
-  implicit val mockLogger          = new MockLogger
-  implicit val mockVcsAlg          = new MockVcsAlg
-  implicit val configResolver      = new EmergenceConfigResolverAlg[Eff](settings.config)
-  implicit val conditionMatcherAlg = new ConditionMatcherAlg[Eff]
-  implicit val mergeAlg            = new MergeAlg[Eff]
-  implicit val emergenceAlg        = new EmergenceAlg[Eff]
+  given mockLogger: Logger[Eff]                         = new MockLogger
+  given mockVcsAlg: VcsAlg[Eff]                         = new MockVcsAlg
+  given configResolver: EmergenceConfigResolverAlg[Eff] = new EmergenceConfigResolverAlg[Eff](settings.config)
+  given conditionMatcherAlg: ConditionMatcherAlg[Eff]   = new ConditionMatcherAlg[Eff]
+  given mergeAlg: MergeAlg[Eff]                         = new MergeAlg[Eff]
+  given emergenceAlg: EmergenceAlg[Eff]                 = new EmergenceAlg[Eff]
 
 }

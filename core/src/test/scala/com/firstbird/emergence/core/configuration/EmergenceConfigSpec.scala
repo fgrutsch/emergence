@@ -1,18 +1,18 @@
 package com.fgrutsch.emergence.core.vcs.bitbucketcloud
 
-import cats.syntax.all._
-import com.fgrutsch.emergence.core.condition._
+import cats.syntax.all.*
+import com.fgrutsch.emergence.core.condition.*
 import com.fgrutsch.emergence.core.configuration.{EmergenceConfig, MergeConfig}
 import com.fgrutsch.emergence.core.vcs.model.MergeStrategy
 import com.typesafe.config.ConfigFactory
 import testutil.BaseSpec
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 class EmergenceConfigSpec extends BaseSpec {
 
   test("default returns empty EmergenceConfig") {
-    EmergenceConfig.default mustBe EmergenceConfig(Nil, none)
+    EmergenceConfig.default mustBe { EmergenceConfig(Nil, none) }
   }
 
   test("from reads settings from typesafe Config") {
@@ -29,10 +29,12 @@ class EmergenceConfigSpec extends BaseSpec {
     """.stripMargin)
 
     val result = EmergenceConfig.from(config)
-    result mustBe EmergenceConfig(
-      Condition.BuildSuccessAll :: Condition.Author(ConditionOperator.Equal, ConditionValue("test")) :: Nil,
-      MergeConfig(MergeStrategy.Squash.some, true.some, 1.second.some).some
-    ).asRight
+    result mustBe {
+      EmergenceConfig(
+        Condition.BuildSuccessAll :: Condition.Author(ConditionOperator.Equal, ConditionValue("test")) :: Nil,
+        MergeConfig(MergeStrategy.Squash.some, true.some, 1.second.some).some
+      ).asRight
+    }
   }
 
 }

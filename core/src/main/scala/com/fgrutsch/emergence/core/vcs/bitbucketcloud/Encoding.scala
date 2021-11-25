@@ -16,15 +16,16 @@
 
 package com.fgrutsch.emergence.core.vcs.bitbucketcloud
 
-import com.fgrutsch.emergence.core.vcs.model.BranchName._
-import com.fgrutsch.emergence.core.vcs.model.PullRequestNumber._
-import com.fgrutsch.emergence.core.vcs.model.PullRequestTitle._
-import com.fgrutsch.emergence.core.vcs.model._
-import io.circe._
+import cats.syntax.all.*
+import com.fgrutsch.emergence.core.vcs.model.BranchName.*
+import com.fgrutsch.emergence.core.vcs.model.PullRequestNumber.*
+import com.fgrutsch.emergence.core.vcs.model.PullRequestTitle.*
+import com.fgrutsch.emergence.core.vcs.model.*
+import io.circe.*
 
 private[bitbucketcloud] object Encoding {
 
-  implicit val pullRequestDecoder: Decoder[PullRequest] = Decoder.instance { c =>
+  given Decoder[PullRequest] = Decoder.instance { c =>
     for {
       id               <- c.downField("id").as[PullRequestNumber]
       title            <- c.downField("title").as[PullRequestTitle]
@@ -34,24 +35,24 @@ private[bitbucketcloud] object Encoding {
     } yield PullRequest(id, title, sourceBranchName, targetBranchName, author)
   }
 
-  implicit val buildStatusDecoder: Decoder[BuildStatus] = Decoder.instance { c =>
+  given Decoder[BuildStatusState] = {
+    Decoder[String].emap {
+      case "SUCCESSFUL" => BuildStatusState.Success.asRight
+      case "INPROGRESS" => BuildStatusState.InProgress.asRight
+      case "FAILED"     => BuildStatusState.Failed.asRight
+      case "STOPPED"    => BuildStatusState.Stopped.asRight
+      case s            => s"Unknown build status state: '$s'".asLeft
+    }
+  }
+
+  given Decoder[BuildStatus] = Decoder.instance { c =>
     for {
       name  <- c.downField("name").as[BuildStatusName]
       state <- c.downField("state").as[BuildStatusState]
     } yield BuildStatus(name, state)
   }
 
-  implicit val buildStatusStateDecoder: Decoder[BuildStatusState] = {
-    Decoder[String].emap {
-      case "SUCCESSFUL" => Right(BuildStatusState.Success)
-      case "INPROGRESS" => Right(BuildStatusState.InProgress)
-      case "FAILED"     => Right(BuildStatusState.Failed)
-      case "STOPPED"    => Right(BuildStatusState.Stopped)
-      case s            => Left(s"Unknown build status state: '$s'")
-    }
-  }
-
-  implicit val mergeStrategyEncoder: Encoder[MergeStrategy] = Encoder.encodeString.contramap[MergeStrategy] {
+  given mergeStrategyEncoder: Encoder[MergeStrategy] = Encoder.encodeString.contramap[MergeStrategy] {
     case MergeStrategy.MergeCommit => "merge_commit"
     case MergeStrategy.Squash      => "squash"
     case MergeStrategy.FastForward => "fast_forward"

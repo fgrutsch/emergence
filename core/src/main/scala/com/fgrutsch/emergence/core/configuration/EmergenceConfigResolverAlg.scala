@@ -19,14 +19,12 @@ package com.fgrutsch.emergence.core.configuration
 import cats.MonadThrow
 import cats.effect.Sync
 import cats.kernel.Semigroup
-import cats.syntax.all._
-import com.fgrutsch.emergence.core.configuration._
+import cats.syntax.all.*
+import com.fgrutsch.emergence.core.configuration.*
 import com.fgrutsch.emergence.core.vcs.VcsAlg
 import com.fgrutsch.emergence.core.vcs.model.{RepoFile, Repository}
 
-class EmergenceConfigResolverAlg[F[_]](runConfig: RunConfig)(implicit
-    vcsAlg: VcsAlg[F],
-    F: Sync[F] with MonadThrow[F]) {
+class EmergenceConfigResolverAlg[F[_]](runConfig: RunConfig)(using vcsAlg: VcsAlg[F], F: Sync[F] & MonadThrow[F]) {
 
   def loadAndCombine(repo: Repository, runEmergenceConfig: Option[EmergenceConfig]): F[EmergenceConfig] = {
     for {
@@ -48,7 +46,7 @@ class EmergenceConfigResolverAlg[F[_]](runConfig: RunConfig)(implicit
     }
   }
 
-  implicit private def emergenceConfigSemigroup: Semigroup[EmergenceConfig] =
+  private given Semigroup[EmergenceConfig] =
     Semigroup.instance[EmergenceConfig]((x, y) => {
       EmergenceConfig(
         conditions = x.conditions |+| y.conditions,
@@ -56,7 +54,7 @@ class EmergenceConfigResolverAlg[F[_]](runConfig: RunConfig)(implicit
       )
     })
 
-  implicit private def mergeConfigSemigroup: Semigroup[MergeConfig] =
+  private given Semigroup[MergeConfig] =
     Semigroup.instance[MergeConfig] { (x, y) =>
       MergeConfig(
         strategy = x.strategy.orElse(y.strategy),

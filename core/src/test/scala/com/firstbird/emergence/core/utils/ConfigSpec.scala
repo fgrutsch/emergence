@@ -1,13 +1,12 @@
 package com.fgrutsch.emergence.core.utils
 
-import cats.syntax.all._
-import com.fgrutsch.emergence.core.utils.config._
-import io.circe.DecodingFailure
-import io.circe.literal._
+import cats.syntax.all.*
+import com.fgrutsch.emergence.core.utils.config.given
+import io.circe.{DecodingFailure, Json}
 import org.scalatest.prop.TableDrivenPropertyChecks
 import testutil.BaseSpec
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 class ConfigSpec extends BaseSpec with TableDrivenPropertyChecks {
 
@@ -22,9 +21,9 @@ class ConfigSpec extends BaseSpec with TableDrivenPropertyChecks {
     )
 
     forAll(table) { case (input, expected) =>
-      val jsonInput = json"$input"
+      val jsonInput = Json.fromString(input)
       val result    = jsonInput.as[FiniteDuration]
-      result mustBe expected
+      result mustBe { expected }
     }
   }
 

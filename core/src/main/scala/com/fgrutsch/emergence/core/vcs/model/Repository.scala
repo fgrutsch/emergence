@@ -24,7 +24,7 @@ final case class Repository(owner: String, name: String) {
 
 object Repository {
 
-  implicit val repositoryDecoder: Decoder[Repository] = Decoder.decodeString.flatMap { s =>
+  given Decoder[Repository] = Decoder.decodeString.flatMap { s =>
     s.split('/') match {
       case Array(owner, name) => Decoder.const(Repository(owner, name))
       case _                  => Decoder.failedWithMessage(s"Invalid repository format: '$s'")

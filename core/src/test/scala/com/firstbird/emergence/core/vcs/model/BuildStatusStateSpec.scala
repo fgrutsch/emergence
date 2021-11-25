@@ -15,7 +15,7 @@ class BuildStatusStateSpec extends BaseSpec with TableDrivenPropertyChecks {
     )
 
     forAll(table) { case (input, expected) =>
-      input.isSuccess mustBe expected
+      input.isSuccess mustBe { expected }
     }
   }
 
@@ -29,7 +29,7 @@ class BuildStatusStateSpec extends BaseSpec with TableDrivenPropertyChecks {
     )
 
     forAll(table) { case (input, expected) =>
-      input.isSuccess mustBe expected
+      input.isSuccess mustBe { expected }
     }
   }
 

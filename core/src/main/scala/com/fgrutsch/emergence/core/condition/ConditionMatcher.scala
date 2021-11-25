@@ -24,8 +24,8 @@ private[condition] object ConditionMatcher {
   object syntax extends syntax
 
   trait syntax {
-    implicit class ConditionMatcherOps[A <: Condition, B](underlying: A) {
-      def matches(input: B)(implicit m: ConditionMatcher[A, B]): MatchResult = m.matches(underlying, input)
+    extension [A <: Condition, B](underlying: A) {
+      def matches(input: B)(using m: ConditionMatcher[A, B]): MatchResult = m.matches(underlying, input)
     }
   }
 

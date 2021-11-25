@@ -5,7 +5,7 @@ package object testutil {
 
   type Eff[A] = Kleisli[IO, Ref[IO, TestState], A]
 
-  implicit class EffOps[A](private val fa: Eff[A]) extends AnyVal {
+  extension [A](fa: Eff[A]) {
     def runA(state: TestState): IO[A] =
       Ref[IO].of(state).flatMap(fa.run)
 

@@ -22,7 +22,7 @@ final private[bitbucketcloud] case class Page[A](items: List[A])
 
 private[bitbucketcloud] object Page {
 
-  implicit def pageDecoder[A: Decoder]: Decoder[Page[A]] = {
+  given [A](using Decoder[A]): Decoder[Page[A]] = {
     Decoder.instance { c =>
       c.downField("values").as[List[A]].map(Page(_))
     }

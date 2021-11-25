@@ -16,16 +16,24 @@
 
 package com.fgrutsch.emergence.core
 
-import caseapp.cats.IOCaseApp
-import caseapp.core.RemainingArgs
 import cats.effect.{ExitCode, IO}
-import com.fgrutsch.emergence.core.app.CliOptions._
-import com.fgrutsch.emergence.core.app.{CliOptions, _}
+import cats.syntax.all.*
+import com.fgrutsch.emergence.BuildInfo
+import com.fgrutsch.emergence.core.app.CliOptions.*
+import com.fgrutsch.emergence.core.app.{CliOptions, *}
+import com.monovore.decline.*
+import com.monovore.decline.effect.CommandIOApp
 
-object App extends IOCaseApp[CliOptions] {
+object App
+    extends CommandIOApp(
+      name = "emergence",
+      header = s"eMERGEnce ${BuildInfo.Version}",
+      version = BuildInfo.Version
+    ) {
 
-  def run(options: CliOptions, args: RemainingArgs): IO[ExitCode] = {
-    EmergenceContext[IO](options).use(_.run)
+  override def main: Opts[IO[ExitCode]] = {
+    CliOptions.declineOpts.map { options =>
+      EmergenceContext[IO](options).use(_.run)
+    }
   }
-
 }

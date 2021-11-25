@@ -23,8 +23,6 @@ sealed trait BuildStatusState {
     case _                        => false
   }
 
-  def isFailure: Boolean = !isSuccess
-
 }
 
 object BuildStatusState {

@@ -19,18 +19,18 @@ package com.fgrutsch.emergence.core.app
 import cats.MonadThrow
 import cats.effect.ExitCode
 import cats.effect.kernel.Concurrent
-import cats.instances.all._
-import cats.syntax.all._
+import cats.instances.all.*
+import cats.syntax.all.*
 import com.fgrutsch.emergence.BuildInfo
 import com.fgrutsch.emergence.core.configuration.EmergenceConfigResolverAlg
 import com.fgrutsch.emergence.core.configuration.RunConfig.RepositoryConfig
 import com.fgrutsch.emergence.core.merge.MergeAlg
 import com.fgrutsch.emergence.core.model.Settings
-import com.fgrutsch.emergence.core.utils.logging._
+import com.fgrutsch.emergence.core.utils.logging.*
 import fs2.Stream
 import org.typelevel.log4cats.Logger
 
-class EmergenceAlg[F[_]: Concurrent](implicit
+class EmergenceAlg[F[_]: Concurrent](using
     settings: Settings,
     logger: Logger[F],
     configResolverAlg: EmergenceConfigResolverAlg[F],
@@ -57,7 +57,7 @@ class EmergenceAlg[F[_]: Concurrent](implicit
     for {
 
       _      <- logger.info(s"$banner")
-      _      <- logger.info(s"Running eMERGEnce with version: ${BuildInfo.version}")
+      _      <- logger.info(s"Running eMERGEnce with version: ${BuildInfo.Version}")
       _      <- printConfiguredRepos()
       result <- stream.foldMonoid.map(_.fold(_ => ExitCode.Error, _ => ExitCode.Success))
     } yield result

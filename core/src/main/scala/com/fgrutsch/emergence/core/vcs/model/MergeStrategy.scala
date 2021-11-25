@@ -26,7 +26,7 @@ object MergeStrategy {
   case object Squash      extends MergeStrategy
   case object FastForward extends MergeStrategy
 
-  implicit val mergeStrategyDecoder: Decoder[MergeStrategy] = Decoder.decodeString.flatMap {
+  given Decoder[MergeStrategy] = Decoder.decodeString.flatMap {
     case "merge-commit" => Decoder.const(MergeCommit)
     case "squash"       => Decoder.const(Squash)
     case "fast-forward" => Decoder.const(FastForward)

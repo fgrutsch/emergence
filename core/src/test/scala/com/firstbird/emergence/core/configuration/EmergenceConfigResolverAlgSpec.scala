@@ -1,11 +1,11 @@
 package com.fgrutsch.emergence.core.configuration
 
-import cats.syntax.all._
-import com.fgrutsch.emergence.core.condition._
-import com.fgrutsch.emergence.core.vcs.model._
-import testutil._
+import cats.syntax.all.*
+import com.fgrutsch.emergence.core.condition.*
+import com.fgrutsch.emergence.core.vcs.model.*
+import testutil.*
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 class EmergenceConfigResolverAlgSpec extends BaseSpec {
 
@@ -17,17 +17,19 @@ class EmergenceConfigResolverAlgSpec extends BaseSpec {
       .runA(initial)
       .unsafeRunSync()
 
-    result mustBe EmergenceConfig(
-      List(
-        Condition.BuildSuccessAll,
-        Condition.Author(ConditionOperator.Equal, ConditionValue("fgrutsch"))
-      ),
-      MergeConfig(
-        MergeStrategy.MergeCommit.some,
-        false.some,
-        1.second.some
-      ).some
-    )
+    result mustBe {
+      EmergenceConfig(
+        List(
+          Condition.BuildSuccessAll,
+          Condition.Author(ConditionOperator.Equal, ConditionValue("fgrutsch"))
+        ),
+        MergeConfig(
+          MergeStrategy.MergeCommit.some,
+          false.some,
+          1.second.some
+        ).some
+      )
+    }
   }
 
   test("loadAndCombine use runEmergenceConfig with higher priority if no repo config file exists") {
@@ -47,18 +49,20 @@ class EmergenceConfigResolverAlgSpec extends BaseSpec {
       .runA(initial)
       .unsafeRunSync()
 
-    result mustBe EmergenceConfig(
-      List(
-        Condition.TargetBranch(ConditionOperator.Equal, ConditionValue("master")),
-        Condition.BuildSuccessAll,
-        Condition.Author(ConditionOperator.Equal, ConditionValue("fgrutsch"))
-      ),
-      MergeConfig(
-        MergeStrategy.FastForward.some,
-        true.some,
-        2.seconds.some
-      ).some
-    )
+    result mustBe {
+      EmergenceConfig(
+        List(
+          Condition.TargetBranch(ConditionOperator.Equal, ConditionValue("master")),
+          Condition.BuildSuccessAll,
+          Condition.Author(ConditionOperator.Equal, ConditionValue("fgrutsch"))
+        ),
+        MergeConfig(
+          MergeStrategy.FastForward.some,
+          true.some,
+          2.seconds.some
+        ).some
+      )
+    }
   }
 
   test("loadAndCombine use reepo config with highest priority") {
@@ -89,19 +93,21 @@ class EmergenceConfigResolverAlgSpec extends BaseSpec {
       .runA(initial)
       .unsafeRunSync()
 
-    result mustBe EmergenceConfig(
-      List(
-        Condition.SourceBranch(ConditionOperator.Equal, ConditionValue("update/x")),
-        Condition.TargetBranch(ConditionOperator.Equal, ConditionValue("master")),
-        Condition.BuildSuccessAll,
-        Condition.Author(ConditionOperator.Equal, ConditionValue("fgrutsch"))
-      ),
-      MergeConfig(
-        MergeStrategy.Squash.some,
-        true.some,
-        3.seconds.some
-      ).some
-    )
+    result mustBe {
+      EmergenceConfig(
+        List(
+          Condition.SourceBranch(ConditionOperator.Equal, ConditionValue("update/x")),
+          Condition.TargetBranch(ConditionOperator.Equal, ConditionValue("master")),
+          Condition.BuildSuccessAll,
+          Condition.Author(ConditionOperator.Equal, ConditionValue("fgrutsch"))
+        ),
+        MergeConfig(
+          MergeStrategy.Squash.some,
+          true.some,
+          3.seconds.some
+        ).some
+      )
+    }
   }
 
 }

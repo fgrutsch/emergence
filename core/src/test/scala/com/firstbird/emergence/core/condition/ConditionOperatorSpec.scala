@@ -1,6 +1,6 @@
 package com.fgrutsch.emergence.core.condition
 
-import cats.syntax.all._
+import cats.syntax.all.*
 import org.scalatest.prop.TableDrivenPropertyChecks
 import testutil.BaseSpec
 
@@ -15,7 +15,7 @@ class ConditionOperatorSpec extends BaseSpec with TableDrivenPropertyChecks {
     )
 
     forAll(table) { case (input, expected) =>
-      ConditionOperator.unapply(input) mustBe expected
+      ConditionOperator.unapply(input) mustBe { expected }
     }
   }
 
@@ -46,7 +46,7 @@ class ConditionOperatorSpec extends BaseSpec with TableDrivenPropertyChecks {
     )
 
     forAll(table) { case (condition, input, expected) =>
-      ConditionOperator.matches(condition, input) mustBe expected
+      ConditionOperator.matches(condition, input) mustBe { expected }
     }
   }
 

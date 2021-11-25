@@ -16,11 +16,10 @@
 
 package com.fgrutsch.emergence.core.configuration
 
-import cats.syntax.all._
+import cats.syntax.all.*
 import com.fgrutsch.emergence.core.condition.Condition
 import com.typesafe.config.Config
-import io.circe.config.syntax._
-import io.circe.generic.auto._
+import io.circe.config.syntax.*
 import io.circe.{Decoder, Error}
 
 final case class EmergenceConfig(
@@ -34,7 +33,7 @@ object EmergenceConfig {
 
   def from(config: Config): Either[Error, EmergenceConfig] = config.as[EmergenceConfig]
 
-  implicit val emergenceConfigDecoder: Decoder[EmergenceConfig] = Decoder.instance { c =>
+  given Decoder[EmergenceConfig] = Decoder.instance { c =>
     for {
       conditions <- c.downField("conditions").as[Option[List[Condition]]]
       merge      <- c.downField(("merge")).as[Option[MergeConfig]]

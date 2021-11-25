@@ -17,12 +17,11 @@
 package com.fgrutsch.emergence.core.configuration
 
 import cats.data.NonEmptyList
-import com.fgrutsch.emergence.core.configuration.EmergenceConfig._
+import com.fgrutsch.emergence.core.configuration.EmergenceConfig.*
 import com.fgrutsch.emergence.core.vcs.model.Repository
-import com.fgrutsch.emergence.core.vcs.model.Repository._
+import com.fgrutsch.emergence.core.vcs.model.Repository.*
 import com.typesafe.config.Config
-import io.circe.config.syntax._
-import io.circe.generic.auto._
+import io.circe.config.syntax.*
 import io.circe.{Decoder, Error}
 
 final case class RunConfig(
@@ -38,7 +37,7 @@ object RunConfig {
   )
 
   object RepositoryConfig {
-    implicit val repositoryConfigDecoder: Decoder[RepositoryConfig] = Decoder.instance { c =>
+    given Decoder[RepositoryConfig] = Decoder.instance { c =>
       for {
         name            <- c.downField("name").as[Repository]
         emergenceConfig <- c.as[Option[EmergenceConfig]]
@@ -48,7 +47,7 @@ object RunConfig {
 
   def from(config: Config): Either[Error, RunConfig] = config.as[RunConfig]
 
-  implicit val runConfigDecoder: Decoder[RunConfig] = Decoder.instance { c =>
+  given Decoder[RunConfig] = Decoder.instance { c =>
     for {
       repositories <- c.downField("repositories").as[NonEmptyList[RepositoryConfig]]
       defaults     <- c.downField("defaults").as[Option[EmergenceConfig]]

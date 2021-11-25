@@ -16,8 +16,8 @@
 
 package com.fgrutsch.emergence.core.vcs.bitbucketcloud
 
-import com.fgrutsch.emergence.core.vcs.bitbucketcloud.Encoding._
-import com.fgrutsch.emergence.core.vcs.model._
+import com.fgrutsch.emergence.core.vcs.bitbucketcloud.Encoding.{mergeStrategyEncoder, *}
+import com.fgrutsch.emergence.core.vcs.model.*
 import io.circe.{Encoder, Json}
 
 final private[bitbucketcloud] case class MergePullRequestRequest(
@@ -27,7 +27,7 @@ final private[bitbucketcloud] case class MergePullRequestRequest(
 
 private[bitbucketcloud] object MergePullRequestRequest {
 
-  implicit val mergePullRequestEncoder: Encoder[MergePullRequestRequest] = {
+  given Encoder[MergePullRequestRequest] = {
     Encoder.instance { m =>
       Json.obj(
         "close_source_branch" -> Json.fromBoolean(m.closeSourceBranch),

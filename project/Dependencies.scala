@@ -7,23 +7,21 @@ object Dependencies {
   private val sttpClientVersion = "3.3.17"
 
   val core: Seq[ModuleID] = Seq(
-    "ch.qos.logback"                 % "logback-classic"                % "1.2.7",
-    "com.github.alexarchambault"    %% "case-app-cats"                  % "2.1.0-M9",
-    "com.softwaremill.sttp.client3" %% "core"                           % sttpClientVersion,
-    "com.softwaremill.sttp.client3" %% "circe"                          % sttpClientVersion,
-    "com.softwaremill.sttp.client3" %% "async-http-client-backend-cats" % sttpClientVersion,
-    "org.typelevel"                 %% "cats-effect"                    % "3.2.9",
-    "co.fs2"                        %% "fs2-core"                       % fs2Version,
-    "co.fs2"                        %% "fs2-io"                         % fs2Version,
-    "io.circe"                      %% "circe-config"                   % "0.8.0",
-    "io.circe"                      %% "circe-yaml"                     % "0.14.1",
-    "io.circe"                      %% "circe-literal"                  % circeVersion,
-    "io.circe"                      %% "circe-generic-extras"           % circeVersion,
-    "org.typelevel"                 %% "log4cats-slf4j"                 % "2.1.1",
-    "org.scalatest"                 %% "scalatest"                      % "3.2.10" % Test
+    "ch.qos.logback"                   % "logback-classic"                % "1.2.7",
+    "co.fs2"                          %% "fs2-io"                         % fs2Version,
+    "co.fs2"                          %% "fs2-core"                       % fs2Version,
+    "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml"        % "2.13.0",
+    "com.monovore"                    %% "decline-effect"                 % "2.2.0",
+    "com.softwaremill.sttp.client3"   %% "core"                           % sttpClientVersion,
+    "com.softwaremill.sttp.client3"   %% "circe"                          % sttpClientVersion,
+    "com.softwaremill.sttp.client3"   %% "async-http-client-backend-cats" % sttpClientVersion,
+    "com.typesafe"                     % "config"                         % "1.4.1",
+    "io.circe"                        %% "circe-yaml"                     % "0.14.1",
+    "org.scalatest"                   %% "scalatest"                      % "3.2.10" % Test,
+    "org.typelevel"                   %% "cats-effect"                    % "3.2.9",
+    "org.typelevel"                   %% "log4cats-slf4j"                 % "2.1.1"
   )
 
-  val betterMonadicFor: ModuleID = "com.olegpy"           %% "better-monadic-for" % "0.3.1"
-  val organizeimports: ModuleID  = "com.github.liancheng" %% "organize-imports"   % "0.6.0"
+  val organizeimports: ModuleID = "com.github.liancheng" %% "organize-imports" % "0.6.0"
 
 }

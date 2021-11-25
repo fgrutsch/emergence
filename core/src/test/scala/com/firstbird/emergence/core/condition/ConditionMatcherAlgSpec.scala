@@ -1,9 +1,9 @@
 package com.fgrutsch.emergence.core.condition
 
 import cats.Id
-import cats.syntax.all._
+import cats.syntax.all.*
 import com.fgrutsch.emergence.core.condition.Condition.BuildSuccessAll
-import com.fgrutsch.emergence.core.vcs.model._
+import com.fgrutsch.emergence.core.vcs.model.*
 import testutil.BaseSpec
 
 class ConditionMatcherAlgSpec extends BaseSpec {
@@ -24,7 +24,7 @@ class ConditionMatcherAlgSpec extends BaseSpec {
     )
 
     val result = matcherAlg.checkConditions(conditions, input)
-    result mustBe "No conditions provided. At least one condition required in order to execute a merge.".invalidNel
+    result mustBe { "No conditions provided. At least one condition required in order to execute a merge.".invalidNel }
   }
 
   test("checkConditions fails BuildSuccessAll condition with empty build statuses") {
@@ -41,7 +41,7 @@ class ConditionMatcherAlgSpec extends BaseSpec {
     )
 
     val result = matcherAlg.checkConditions(conditions, input)
-    result mustBe "No build statuses. At least one required for this condition.".invalidNel
+    result mustBe { "No build statuses. At least one required for this condition.".invalidNel }
   }
 
   test("checkConditions fails BuildSuccessAll condition with at least one failing build") {
@@ -61,7 +61,7 @@ class ConditionMatcherAlgSpec extends BaseSpec {
     )
 
     val result = matcherAlg.checkConditions(conditions, input)
-    result mustBe "Build is not succesful: 'Testing'".invalidNel
+    result mustBe { "Build is not succesful: 'Testing'".invalidNel }
   }
 
   test("checkConditions succeeds BuildSuccessAll condition") {
@@ -81,7 +81,7 @@ class ConditionMatcherAlgSpec extends BaseSpec {
     )
 
     val result = matcherAlg.checkConditions(conditions, input)
-    result mustBe ().validNel
+    result mustBe { ().validNel }
   }
 
   test("checkConditions fails Author condition if there is no match") {
@@ -98,7 +98,7 @@ class ConditionMatcherAlgSpec extends BaseSpec {
     )
 
     val result = matcherAlg.checkConditions(conditions, input)
-    result mustBe "Input 'fgrutsch' doesn't match condition 'abc' with operator '=='".invalidNel
+    result mustBe { "Input 'fgrutsch' doesn't match condition 'abc' with operator '=='".invalidNel }
   }
 
   test("checkConditions succeeds Author condition") {
@@ -115,7 +115,7 @@ class ConditionMatcherAlgSpec extends BaseSpec {
     )
 
     val result = matcherAlg.checkConditions(conditions, input)
-    result mustBe ().validNel
+    result mustBe { ().validNel }
   }
 
   test("checkConditions fails SourceBranch condition if there is no match") {
@@ -132,7 +132,7 @@ class ConditionMatcherAlgSpec extends BaseSpec {
     )
 
     val result = matcherAlg.checkConditions(conditions, input)
-    result mustBe "Input 'update/abc' doesn't match condition 'abc' with operator '=='".invalidNel
+    result mustBe { "Input 'update/abc' doesn't match condition 'abc' with operator '=='".invalidNel }
   }
 
   test("checkConditions succeeds SourceBranch condition") {
@@ -149,7 +149,7 @@ class ConditionMatcherAlgSpec extends BaseSpec {
     )
 
     val result = matcherAlg.checkConditions(conditions, input)
-    result mustBe ().validNel
+    result mustBe { ().validNel }
   }
 
   test("checkConditions fails TargetBranch§ condition if there is no match") {
@@ -166,7 +166,7 @@ class ConditionMatcherAlgSpec extends BaseSpec {
     )
 
     val result = matcherAlg.checkConditions(conditions, input)
-    result mustBe "Input 'master' doesn't match condition 'abc' with operator '=='".invalidNel
+    result mustBe { "Input 'master' doesn't match condition 'abc' with operator '=='".invalidNel }
   }
 
   test("checkConditions succeeds TargetBranch condition") {
@@ -183,7 +183,7 @@ class ConditionMatcherAlgSpec extends BaseSpec {
     )
 
     val result = matcherAlg.checkConditions(conditions, input)
-    result mustBe ().validNel
+    result mustBe { ().validNel }
   }
 
 }

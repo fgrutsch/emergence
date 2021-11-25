@@ -16,11 +16,11 @@
 
 package com.fgrutsch.emergence.core.configuration
 
-import com.fgrutsch.emergence.core.utils.config._
+import com.fgrutsch.emergence.core.utils.config.given
 import com.fgrutsch.emergence.core.vcs.model.MergeStrategy
 import io.circe.Decoder
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.{FiniteDuration, *}
 
 final case class MergeConfig(
     strategy: Option[MergeStrategy],
@@ -36,7 +36,7 @@ object MergeConfig {
     val throttle: FiniteDuration   = 0.seconds
   }
 
-  implicit val mergeConfigDecoder: Decoder[MergeConfig] = Decoder.instance { c =>
+  given Decoder[MergeConfig] = Decoder.instance { c =>
     for {
       strategy          <- c.downField("strategy").as[Option[MergeStrategy]]
       closeSourceBranch <- c.downField("close_source_branch").as[Option[Boolean]]

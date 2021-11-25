@@ -1,9 +1,9 @@
 package com.fgrutsch.emergence.core.vcs.bitbucketcloud
 
 import cats.effect.IO
-import cats.syntax.all._
-import com.fgrutsch.emergence.core.vcs.model._
-import io.circe.literal._
+import cats.syntax.all.*
+import com.fgrutsch.emergence.core.vcs.model.*
+import io.circe.parser.*
 import sttp.client3.Response
 import sttp.client3.asynchttpclient.cats.AsyncHttpClientCatsBackend
 import sttp.client3.testing.SttpBackendStub
@@ -12,7 +12,7 @@ import testutil.BaseSpec
 
 class BitbucketCloudVcsSpec extends BaseSpec {
 
-  implicit private val sttpBackend: SttpBackendStub[IO, Any] = AsyncHttpClientCatsBackend
+  private given SttpBackendStub[IO, Any] = AsyncHttpClientCatsBackend
     .stub[IO]
     .whenRequestMatches { r =>
       r.uri.path.startsWith("repositories" :: "owner" :: "name" :: "pullrequests" :: Nil) &&
@@ -20,7 +20,7 @@ class BitbucketCloudVcsSpec extends BaseSpec {
       r.uri.paramsMap == Map("state" -> "OPEN", "pagelen" -> "50")
     }
     .thenRespond(
-      json"""
+      parse("""
         {
             "values": [
                 {
@@ -42,14 +42,14 @@ class BitbucketCloudVcsSpec extends BaseSpec {
                 }
             ]
         }
-        """.toString
+        """).value.toString
     )
     .whenRequestMatches { r =>
       r.uri.path.startsWith("repositories" :: "owner" :: "name" :: "pullrequests" :: "1" :: "statuses" :: Nil) &&
       r.method == Method.GET
     }
     .thenRespond(
-      json"""
+      parse("""
         {
             "values": [
                 {
@@ -58,14 +58,14 @@ class BitbucketCloudVcsSpec extends BaseSpec {
                 }
             ]
         }
-        """.toString
+        """).value.toString
     )
     .whenRequestMatches { r =>
       r.uri.path.startsWith("repositories" :: "owner" :: "name" :: "pullrequests" :: "1" :: Nil) &&
       r.method == Method.POST
     }
     .thenRespond(
-      json"""
+      parse("""
         {
           "id": 1,
           "title": "Test",
@@ -83,7 +83,7 @@ class BitbucketCloudVcsSpec extends BaseSpec {
               "nickname": "fgrutsch"
           }
         }
-        """.toString
+        """).value.toString
     )
     .whenRequestMatches { r =>
       r.uri.path.startsWith("repositories" :: "owner" :: "name" :: "pullrequests" :: "1" :: "diffstat" :: Nil) &&
@@ -102,7 +102,7 @@ class BitbucketCloudVcsSpec extends BaseSpec {
       r.method == Method.GET
     }
     .thenRespond(
-      json"""
+      parse("""
         {
           "values": [
             {
@@ -110,7 +110,7 @@ class BitbucketCloudVcsSpec extends BaseSpec {
             }
           ]
         }
-        """.toString
+        """).value.toString
     )
     .whenRequestMatches { r =>
       r.uri.path.startsWith("repositories" :: "owner" :: "name" :: "src" :: "master" :: ".emergence.yml" :: Nil) &&
@@ -122,37 +122,39 @@ class BitbucketCloudVcsSpec extends BaseSpec {
 
   test("listPullRequests") {
     val result = bitbucketCloudVcs.listPullRequests(Repository("owner", "name")).unsafeRunSync()
-    result mustBe List(
-      PullRequest(
-        PullRequestNumber(1),
-        PullRequestTitle("Test"),
-        BranchName("update/abc"),
-        BranchName("master"),
-        Author("fgrutsch")
+    result mustBe {
+      List(
+        PullRequest(
+          PullRequestNumber(1),
+          PullRequestTitle("Test"),
+          BranchName("update/abc"),
+          BranchName("master"),
+          Author("fgrutsch")
+        )
       )
-    )
+    }
   }
 
   test("listBuildStatuses") {
     val result = bitbucketCloudVcs.listBuildStatuses(Repository("owner", "name"), PullRequestNumber(1)).unsafeRunSync()
-    result mustBe List(BuildStatus(BuildStatusName("Build and Test"), BuildStatusState.Success))
+    result mustBe { List(BuildStatus(BuildStatusName("Build and Test"), BuildStatusState.Success)) }
   }
 
   test("mergePullRequest") {
     val result = bitbucketCloudVcs
       .mergePullRequest(Repository("owner", "name"), PullRequestNumber(1), MergeStrategy.Squash, true)
       .unsafeRunSync()
-    result mustBe ()
+    result mustBe { () }
   }
 
   test("mergeCheck") {
     val result = bitbucketCloudVcs.mergeCheck(Repository("owner", "name"), PullRequestNumber(1)).unsafeRunSync()
-    result mustBe MergeCheck.Accept
+    result mustBe { MergeCheck.Accept }
   }
 
   test("findEmergenceConfig") {
     val result = bitbucketCloudVcs.findEmergenceConfigFile(Repository("owner", "name")).unsafeRunSync()
-    result mustBe RepoFile(".emergence.yml-file-content").some
+    result mustBe { RepoFile(".emergence.yml-file-content").some }
   }
 
 }

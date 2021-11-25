@@ -51,7 +51,7 @@ class YmlConfigSpec extends BaseSpec {
     """.stripMargin)
 
     val result = configFromYaml(yml)
-    result.value mustBe config
+    result.value mustBe { config }
   }
 
 }

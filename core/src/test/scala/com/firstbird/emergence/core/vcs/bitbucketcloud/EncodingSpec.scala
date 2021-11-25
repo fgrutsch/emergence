@@ -1,18 +1,18 @@
 package com.fgrutsch.emergence.core.vcs.bitbucketcloud
 
-import cats.syntax.all._
-import com.fgrutsch.emergence.core.vcs.bitbucketcloud.Encoding._
-import com.fgrutsch.emergence.core.vcs.model.{MergeStrategy, _}
-import io.circe.DecodingFailure
-import io.circe.literal._
-import io.circe.syntax._
+import cats.syntax.all.*
+import com.fgrutsch.emergence.core.vcs.bitbucketcloud.Encoding.given
+import com.fgrutsch.emergence.core.vcs.model.{MergeStrategy, *}
+import io.circe.parser.*
+import io.circe.syntax.*
+import io.circe.{DecodingFailure, Json}
 import org.scalatest.prop.TableDrivenPropertyChecks
 import testutil.BaseSpec
 
 class EncodingSpec extends BaseSpec with TableDrivenPropertyChecks {
 
   test("decode PullRequest successfully") {
-    val input = json"""{
+    val input = """{
         "id": 1,
         "title": "Test",
         "source": {
@@ -30,24 +30,26 @@ class EncodingSpec extends BaseSpec with TableDrivenPropertyChecks {
         }
     }"""
 
-    val result = input.as[PullRequest]
-    result.value mustBe PullRequest(
-      PullRequestNumber(1),
-      PullRequestTitle("Test"),
-      BranchName("update/abc"),
-      BranchName("master"),
-      Author("fgrutsch")
-    )
+    val result = parse(input).value.as[PullRequest]
+    result.value mustBe {
+      PullRequest(
+        PullRequestNumber(1),
+        PullRequestTitle("Test"),
+        BranchName("update/abc"),
+        BranchName("master"),
+        Author("fgrutsch")
+      )
+    }
   }
 
   test("decode BuildStatus successfully") {
-    val input = json"""{
+    val input = """{
         "name": "Build and Test",
         "state": "SUCCESSFUL"
     }"""
 
-    val result = input.as[BuildStatus]
-    result.value mustBe BuildStatus(BuildStatusName("Build and Test"), BuildStatusState.Success)
+    val result = parse(input).value.as[BuildStatus]
+    result.value mustBe { BuildStatus(BuildStatusName("Build and Test"), BuildStatusState.Success) }
   }
 
   test("decode BuildStatusState successfully") {
@@ -61,9 +63,9 @@ class EncodingSpec extends BaseSpec with TableDrivenPropertyChecks {
     )
 
     forAll(table) { case (input, expected) =>
-      val jsonInput = json"$input"
+      val jsonInput = Json.fromString(input)
       val result    = jsonInput.as[BuildStatusState]
-      result mustBe expected
+      result mustBe { expected }
     }
   }
 
@@ -77,7 +79,7 @@ class EncodingSpec extends BaseSpec with TableDrivenPropertyChecks {
 
     forAll(table) { case (input, expected) =>
       val result = input.asJson
-      result mustBe json"$expected"
+      result mustBe { Json.fromString(expected) }
     }
   }
 
