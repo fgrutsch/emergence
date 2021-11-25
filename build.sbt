@@ -71,7 +71,7 @@ lazy val core = project
     }.taskValue
   )
   .settings(
-    dockerBaseImage      := "adoptopenjdk:11",
+    dockerBaseImage      := "eclipse-temurin:11",
     Docker / packageName := "fgrutsch/emergence",
     dockerUpdateLatest   := true
   )
