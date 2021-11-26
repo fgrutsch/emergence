@@ -33,9 +33,11 @@ lazy val commonSettings = Seq(
     "-Ysafe-init",
     "-Xfatal-warnings"
   ),
-  headerLicense     := Some(HeaderLicense.ALv2("2021", "Emergence contributors")),
-  semanticdbEnabled := true,
-  semanticdbVersion := scalafixSemanticdb.revision
+  headerLicense                          := Some(HeaderLicense.ALv2("2021", "Emergence contributors")),
+  Compile / doc / sources                := Seq.empty,
+  Compile / packageDoc / publishArtifact := false,
+  semanticdbEnabled                      := true,
+  semanticdbVersion                      := scalafixSemanticdb.revision
 )
 
 lazy val root = project

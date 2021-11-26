@@ -20,6 +20,7 @@ import cats.data.*
 import cats.syntax.all.*
 import com.fgrutsch.emergence.core.configuration.*
 import com.fgrutsch.emergence.core.model.VcsType
+import com.fgrutsch.emergence.core.utils.config.configFromYaml
 import com.monovore.decline.{Argument, Opts}
 import sttp.model.Uri
 

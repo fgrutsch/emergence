@@ -21,6 +21,7 @@ import cats.effect.Sync
 import cats.kernel.Semigroup
 import cats.syntax.all.*
 import com.fgrutsch.emergence.core.configuration.*
+import com.fgrutsch.emergence.core.utils.config.configFromYaml
 import com.fgrutsch.emergence.core.vcs.VcsAlg
 import com.fgrutsch.emergence.core.vcs.model.{RepoFile, Repository}
 

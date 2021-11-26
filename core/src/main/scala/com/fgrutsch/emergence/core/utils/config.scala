@@ -16,7 +16,8 @@
 
 package com.fgrutsch.emergence.core.utils
 
-import io.circe.Decoder
+import com.typesafe.config.{Config, ConfigFactory}
+import io.circe.{Decoder, ParsingFailure, yaml}
 
 import scala.concurrent.duration.*
 import scala.util.{Failure, Success, Try}
@@ -29,4 +30,11 @@ object config {
       case Success(v: Duration)       => Decoder.failedWithMessage(s"Expected a finite duration.")
       case Failure(t)                 => Decoder.failedWithMessage(s"Invalid finite duration: ${t.getMessage}")
     }
+
+  def configFromYaml(ymlString: String): Either[ParsingFailure, Config] = {
+    yaml.parser
+      .parse(ymlString)
+      .map(json => ConfigFactory.parseString(json.toString))
+  }
+
 }

@@ -16,7 +16,7 @@
 
 package com.fgrutsch.emergence.core.condition
 
-import cats.data.NonEmptyList
+import cats.data.{NonEmptyList, ValidatedNel}
 import cats.syntax.all.*
 import com.fgrutsch.emergence.core.condition.Condition
 import com.fgrutsch.emergence.core.condition.ConditionMatcher.syntax.*
@@ -24,9 +24,9 @@ import com.fgrutsch.emergence.core.vcs.model.*
 
 class ConditionMatcherAlg[F[_]] {
 
-  def checkConditions(conditions: List[Condition], input: Input): MatchResult = {
+  def checkConditions(conditions: List[Condition], input: Input): ValidatedNel[String, Unit] = {
 
-    val checkConditionMatches: Condition => MatchResult = {
+    val checkConditionMatches: Condition => ValidatedNel[String, Unit] = {
       case c: Condition.BuildSuccessAll.type => c.matches(input.buildStatuses)
       case c: Condition.Author               => c.matches(input.pullRequest.author)
       case c: Condition.SourceBranch         => c.matches(input.pullRequest.sourceBranchName)
@@ -36,7 +36,7 @@ class ConditionMatcherAlg[F[_]] {
     NonEmptyList.fromList(conditions) match {
       case Some(conds) =>
         val empty = ().validNel[String]
-        conds.foldLeft(empty) { (acc: MatchResult, a: Condition) =>
+        conds.foldLeft(empty) { (acc: ValidatedNel[String, Unit], a: Condition) =>
           (checkConditionMatches(a), acc).mapN((_, _) => ())
         }
 

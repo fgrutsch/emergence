@@ -15,9 +15,10 @@
  */
 
 package com.fgrutsch.emergence.core.condition
+import cats.data.ValidatedNel
 
 private[condition] trait ConditionMatcher[A <: Condition, B] {
-  def matches(condition: A, input: B): MatchResult
+  def matches(condition: A, input: B): ValidatedNel[String, Unit]
 }
 
 private[condition] object ConditionMatcher {
@@ -25,7 +26,7 @@ private[condition] object ConditionMatcher {
 
   trait syntax {
     extension [A <: Condition, B](underlying: A) {
-      def matches(input: B)(using m: ConditionMatcher[A, B]): MatchResult = m.matches(underlying, input)
+      def matches(input: B)(using m: ConditionMatcher[A, B]): ValidatedNel[String, Unit] = m.matches(underlying, input)
     }
   }
 

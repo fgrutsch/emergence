@@ -16,6 +16,7 @@
 
 package com.fgrutsch.emergence.core.condition
 
+import cats.data.ValidatedNel
 import cats.syntax.all.*
 
 sealed abstract class ConditionOperator(val sign: String) {
@@ -35,7 +36,7 @@ object ConditionOperator {
     }
   }
 
-  def matches(condition: Condition & Condition.Matchable, input: String): MatchResult = {
+  def matches(condition: Condition & Condition.Matchable, input: String): ValidatedNel[String, Unit] = {
     val operator = condition.operator
     val value    = condition.value
 
