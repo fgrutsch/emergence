@@ -56,7 +56,7 @@ jobs:
       - run: sbt ++${{ matrix.scala }} codeVerify +test
 
       - name: Compress target directories
-        run: tar cf targets.tar target core/target docs/target project/target
+        run: tar cf targets.tar target core/target project/target
 
       - name: Upload target directories
         uses: actions/upload-artifact@v2

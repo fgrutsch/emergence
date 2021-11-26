@@ -82,7 +82,8 @@ lazy val docs = project
   .in(file("docs"))
   .settings(commonSettings)
   .settings(
-    name := "docs"
+    name := "docs",
+    githubWorkflowArtifactUpload := false
   )
   .dependsOn(core)
   .enablePlugins(ParadoxSitePlugin)
