@@ -1,5 +1,6 @@
 ThisBuild / scalafixDependencies += Dependencies.organizeimports
 ThisBuild / dynverSeparator := "-" // Default uses '+' which is not valid for docker tags
+ThisBuild / scalaVersion    := "3.1.0"
 
 addCommandAlias("codeFmt", ";headerCreate;scalafmtAll;scalafmtSbt;scalafixAll")
 addCommandAlias("codeVerify", ";scalafmtCheckAll;scalafmtSbtCheck;scalafixAll --check;headerCheck")
@@ -21,7 +22,6 @@ lazy val commonSettings = Seq(
     "",
     url("https://github.com/fgrutsch/emergence/graphs/contributors")
   ),
-  scalaVersion := "3.1.0",
   scalacOptions ++= Seq(
     "-deprecation",
     "-encoding",
