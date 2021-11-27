@@ -3,8 +3,9 @@ pull_request_rules:
     conditions:
       - "author=fgrutsch"
       - "head~=^update\/.+$"
-      - "status-success=jdk-8 Build and Tests"
-      - "status-success=jdk-11 Build and Tests"
+      - "status-success=Build and Test (ubuntu-latest, 3.1.0, 8)"
+      - "status-success=Build and Test (ubuntu-latest, 3.1.0, 11)"
+      - "status-success=Build and Test (ubuntu-latest, 3.1.0, 17)"
     actions:
       merge:
         method: squash
