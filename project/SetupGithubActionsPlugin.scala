@@ -9,15 +9,7 @@ object SetupGithubActionsPlugin extends AutoPlugin {
   override def trigger           = allRequirements
   override def buildSettings: Seq[Setting[_]] = Seq(
     githubWorkflowTargetTags ++= Seq("v*"),
-    githubWorkflowJavaVersions := Seq("8", "11", "17"),
-    githubWorkflowJobSetup := List(
-      WorkflowStep.CheckoutFull,
-      WorkflowStep.Use(
-        UseRef.Public("actions", "setup-java", "v2"),
-        name = Some("Setup Java and Scala"),
-        params = Map("distribution" -> "temurin", "java-version" -> "${{ matrix.java }}")
-      )
-    ) ++ githubWorkflowGeneratedCacheSteps.value.toList,
+    githubWorkflowJavaVersions += JavaSpec.temurin("17"),
     githubWorkflowBuild   := Seq(WorkflowStep.Sbt(List("codeVerify", "+test"))),
     githubWorkflowPublish := Seq(WorkflowStep.Sbt(List("ci-release"))),
     githubWorkflowPublishTargetBranches += RefPredicate.StartsWith(Ref.Tag("v")),
