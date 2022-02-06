@@ -4,7 +4,7 @@ object Dependencies {
 
   private val circeVersion      = "0.14.1"
   private val fs2Version        = "3.2.4"
-  private val sttpClientVersion = "3.4.0"
+  private val sttpClientVersion = "3.4.1"
 
   val core: Seq[ModuleID] = Seq(
     "ch.qos.logback"                   % "logback-classic"                % "1.2.10",
@@ -18,8 +18,8 @@ object Dependencies {
     "com.typesafe"                     % "config"                         % "1.4.1",
     "io.circe"                        %% "circe-yaml"                     % "0.14.1",
     "org.scalatest"                   %% "scalatest"                      % "3.2.10" % Test,
-    "org.typelevel"                   %% "cats-effect"                    % "3.3.4",
-    "org.typelevel"                   %% "log4cats-slf4j"                 % "2.2.0"
+    "org.typelevel"                   %% "cats-effect"                    % "3.3.5",
+    "org.typelevel"                   %% "log4cats-slf4j"                 % "2.1.1"
   )
 
   val organizeimports: ModuleID = "com.github.liancheng" %% "organize-imports" % "0.6.0"
