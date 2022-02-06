@@ -17,7 +17,7 @@ object Dependencies {
     "com.softwaremill.sttp.client3"   %% "async-http-client-backend-cats" % sttpClientVersion,
     "com.typesafe"                     % "config"                         % "1.4.1",
     "io.circe"                        %% "circe-yaml"                     % "0.14.1",
-    "org.scalatest"                   %% "scalatest"                      % "3.2.10" % Test,
+    "org.scalatest"                   %% "scalatest"                      % "3.2.11" % Test,
     "org.typelevel"                   %% "cats-effect"                    % "3.3.5",
     "org.typelevel"                   %% "log4cats-slf4j"                 % "2.1.1"
   )
