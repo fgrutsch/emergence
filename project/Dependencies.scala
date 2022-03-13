@@ -19,7 +19,7 @@ object Dependencies {
     "io.circe"                        %% "circe-yaml"                     % "0.14.1",
     "org.scalatest"                   %% "scalatest"                      % "3.2.10" % Test,
     "org.typelevel"                   %% "cats-effect"                    % "3.3.6",
-    "org.typelevel"                   %% "log4cats-slf4j"                 % "2.1.1"
+    "org.typelevel"                   %% "log4cats-slf4j"                 % "2.2.0"
   )
 
   val organizeimports: ModuleID = "com.github.liancheng" %% "organize-imports" % "0.6.0"
