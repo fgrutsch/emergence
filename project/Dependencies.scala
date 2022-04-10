@@ -18,7 +18,7 @@ object Dependencies {
     "com.typesafe"                     % "config"                         % "1.4.2",
     "io.circe"                        %% "circe-yaml"                     % "0.14.1",
     "org.scalatest"                   %% "scalatest"                      % "3.2.11" % Test,
-    "org.typelevel"                   %% "cats-effect"                    % "3.3.9",
+    "org.typelevel"                   %% "cats-effect"                    % "3.3.11",
     "org.typelevel"                   %% "log4cats-slf4j"                 % "2.2.0"
   )
 
