@@ -32,7 +32,7 @@
 <span class="home-icon">⌂</span>eMERGEnce
 </a>
 <div class="version-number">
-0.4.1
+0.5.0
 </div>
 </div>
 <div class="nav-toc">
@@ -72,7 +72,7 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <span class="home-icon">⌂</span>eMERGEnce
 </a>
 <div class="version-number">
-0.4.1
+0.5.0
 </div>
 </div>
 <div class="nav-toc">
@@ -109,23 +109,26 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <p>You can run eMERGEnce with <a href="https://www.docker.com/">Docker</a> or with <a href="https://get-coursier.io/docs/cli-install">coursier</a>.</p>
 <h2><a href="#docker" name="docker" class="anchor"><span class="anchor-link"></span></a>Docker</h2>
 <p>To get a list of available options run: <code>docker run fgrutsch/emergence:latest --help</code> and you should get the following output:</p>
-<pre><code>eMERGEnce 0.4.1
-Usage: emergence [options]
-  --usage  &lt;bool&gt;
-        Print usage and exit
-  --help | -h  &lt;bool&gt;
-        Print help message and exit
-  --config  &lt;path&gt;
+<pre><code>Usage: emergence --config &lt;path&gt; --vcs-type &lt;bitbucket-cloud&gt; --vcs-api-host &lt;uri&gt; --vcs-login &lt;string&gt; --git-ask-pass &lt;path&gt; [--repo-config-name &lt;string&gt;]
+
+eMERGEnce 0.5.0
+
+Options and flags:
+    --help
+        Display this help text.
+    --version, -v
+        Print the version number and exit.
+    --config &lt;path&gt;
         The path to the eMERGEnce run config file.
-  --vcs-type  &lt;BitbucketCloud&gt;
+    --vcs-type &lt;bitbucket-cloud&gt;
         The type of VCS you want to run eMERGEnce.
-  --vcs-api-host  &lt;uri&gt;
+    --vcs-api-host &lt;uri&gt;
         The base URI for VCS api calls. e.g. https://api.bitbucket.org/2.0
-  --vcs-login  &lt;string&gt;
+    --vcs-login &lt;string&gt;
         The username for authenticating VCS API calls.
-  --git-ask-pass  &lt;path&gt;
+    --git-ask-pass &lt;path&gt;
         The path to the executable script file that returns your VCS secret for authenticating VCS API calls.
-  --repo-config-name  &lt;string&gt;
+    --repo-config-name &lt;string&gt;
         The name/path of the eMERGEnce config file inside the repository. Default: .emergence.yml
 </code></pre>
 <p>An example <code>docker run</code> command might look like this (depending on the selected VCS type):</p>
@@ -138,25 +141,28 @@ Usage: emergence [options]
 </code></pre>
 <h2><a href="#coursier" name="coursier" class="anchor"><span class="anchor-link"></span></a>Coursier</h2>
 <p>To install eMERGEnce as an executable you can use coursier&rsquo;s <a href="https://get-coursier.io/docs/cli-install">install</a> command. The only thing you have to do is to run:</p>
-<p><code>cs install --channel http://coursier.fgrutsch.com emergence</code></p>
+<p><code>coursier install --channel http://coursier.fgrutsch.com emergence</code></p>
 <p>To get a list of available options run: <code>emergence --help</code> and you should get the following output:</p>
-<pre><code>eMERGEnce 0.4.1
-Usage: emergence [options]
-  --usage  &lt;bool&gt;
-        Print usage and exit
-  --help | -h  &lt;bool&gt;
-        Print help message and exit
-  --config  &lt;path&gt;
+<pre><code>Usage: emergence --config &lt;path&gt; --vcs-type &lt;bitbucket-cloud&gt; --vcs-api-host &lt;uri&gt; --vcs-login &lt;string&gt; --git-ask-pass &lt;path&gt; [--repo-config-name &lt;string&gt;]
+
+eMERGEnce 0.5.0
+
+Options and flags:
+    --help
+        Display this help text.
+    --version, -v
+        Print the version number and exit.
+    --config &lt;path&gt;
         The path to the eMERGEnce run config file.
-  --vcs-type  &lt;BitbucketCloud&gt;
+    --vcs-type &lt;bitbucket-cloud&gt;
         The type of VCS you want to run eMERGEnce.
-  --vcs-api-host  &lt;uri&gt;
+    --vcs-api-host &lt;uri&gt;
         The base URI for VCS api calls. e.g. https://api.bitbucket.org/2.0
-  --vcs-login  &lt;string&gt;
+    --vcs-login &lt;string&gt;
         The username for authenticating VCS API calls.
-  --git-ask-pass  &lt;path&gt;
+    --git-ask-pass &lt;path&gt;
         The path to the executable script file that returns your VCS secret for authenticating VCS API calls.
-  --repo-config-name  &lt;string&gt;
+    --repo-config-name &lt;string&gt;
         The name/path of the eMERGEnce config file inside the repository. Default: .emergence.yml
 </code></pre>
 <p>An example command might look like this (depending on the selected VCS type):</p>
@@ -174,7 +180,7 @@ Usage: emergence [options]
 echo &quot;my-git-secret&quot;
 </code></pre>
 <div class="source-github">
-The source code for this page can be found <a href="https://github.com/fgrutsch/emergence/tree/v0.4.1/docs/src/main/paradox/getting-started.md">here</a>.
+The source code for this page can be found <a href="https://github.com/fgrutsch/emergence/tree/v0.5.0/docs/src/main/paradox/getting-started.md">here</a>.
 </div>
 
 <div class="nav-next">
@@ -234,7 +240,7 @@ The source code for this page can be found <a href="https://github.com/fgrutsch/
 
 <!--
 <div class="copyright">
-<span class="text">&copy; 2021</span>
+<span class="text">&copy; 2022</span>
 <a href="https://www.example.com" class="logo">logo</a>
 </div>
 -->
@@ -259,7 +265,7 @@ The source code for this page can be found <a href="https://github.com/fgrutsch/
 <script type="text/javascript" src="lib/prettify/prettify.js"></script>
 <script type="text/javascript" src="lib/prettify/lang-scala.js"></script>
 <script type="text/javascript">jQuery(function(){window.prettyPrint && prettyPrint()});</script>
-<script type="text/javascript">jQuery(function(jq){initOldVersionWarnings(jq, '0.4.1', 'https://github.com/fgrutsch/emergence')});</script>
+<script type="text/javascript">jQuery(function(jq){initOldVersionWarnings(jq, '0.5.0', 'https://github.com/fgrutsch/emergence')});</script>
 
 
 </html>
