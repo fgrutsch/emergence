@@ -22,12 +22,9 @@ private[condition] trait ConditionMatcher[A <: Condition, B] {
 }
 
 private[condition] object ConditionMatcher {
-  object syntax extends syntax
 
-  trait syntax {
-    extension [A <: Condition, B](underlying: A) {
-      def matches(input: B)(using m: ConditionMatcher[A, B]): ValidatedNel[String, Unit] = m.matches(underlying, input)
-    }
+  extension [A <: Condition, B](underlying: A) {
+    def matches(input: B)(using m: ConditionMatcher[A, B]): ValidatedNel[String, Unit] = m.matches(underlying, input)
   }
 
 }

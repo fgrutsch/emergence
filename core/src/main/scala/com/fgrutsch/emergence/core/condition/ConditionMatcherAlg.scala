@@ -19,7 +19,7 @@ package com.fgrutsch.emergence.core.condition
 import cats.data.{NonEmptyList, ValidatedNel}
 import cats.syntax.all.*
 import com.fgrutsch.emergence.core.condition.Condition
-import com.fgrutsch.emergence.core.condition.ConditionMatcher.syntax.*
+import com.fgrutsch.emergence.core.condition.ConditionMatcher.*
 import com.fgrutsch.emergence.core.vcs.model.*
 
 class ConditionMatcherAlg[F[_]] {
@@ -27,7 +27,7 @@ class ConditionMatcherAlg[F[_]] {
   def checkConditions(conditions: List[Condition], input: Input): ValidatedNel[String, Unit] = {
 
     val checkConditionMatches: Condition => ValidatedNel[String, Unit] = {
-      case c: Condition.BuildSuccessAll.type => c.matches(input.buildStatuses)
+      case c: Condition.BuildSuccessAll.type => c.matches(input.buildStatuses)(using bsaMatcher)
       case c: Condition.Author               => c.matches(input.pullRequest.author)
       case c: Condition.SourceBranch         => c.matches(input.pullRequest.sourceBranchName)
       case c: Condition.TargetBranch         => c.matches(input.pullRequest.targetBranchName)
@@ -45,7 +45,7 @@ class ConditionMatcherAlg[F[_]] {
     }
   }
 
-  private given ConditionMatcher[Condition.BuildSuccessAll.type, List[BuildStatus]] = {
+  private given bsaMatcher: ConditionMatcher[Condition.BuildSuccessAll.type, List[BuildStatus]] = {
     case (condition, Nil) => "No build statuses. At least one required for this condition.".invalidNel
     case (condiition, input) =>
       input

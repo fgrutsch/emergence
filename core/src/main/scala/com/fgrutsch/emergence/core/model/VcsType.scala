@@ -16,11 +16,8 @@
 
 package com.fgrutsch.emergence.core.model
 
-sealed abstract class VcsType(val underlying: String) {
-  override def toString: String = underlying
-}
+enum VcsType(val underlying: String) {
+  case BitbucketCloud extends VcsType("bitbucket-cloud")
 
-object VcsType {
-  case object BitbucketCloud extends VcsType("bitbucket-cloud")
-  val values: Set[VcsType] = Set(BitbucketCloud)
+  override def toString: String = underlying
 }

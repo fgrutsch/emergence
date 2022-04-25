@@ -55,9 +55,9 @@ object CliOptions {
     override def read(string: String): ValidatedNel[String, VcsType] = {
       VcsType.values
         .find(_.underlying.toLowerCase == string)
-        .toValidNel(s"Value must be one of: ${VcsType.values.map(_.underlying).mkString(" or ")}")
+        .toValidNel(s"Value must be one of: ${VcsType.values.mkString(" or ")}")
     }
-    override def defaultMetavar: String = VcsType.values.map(_.underlying).mkString(" or ")
+    override def defaultMetavar: String = VcsType.values.mkString(" or ")
   }
 
   private given Argument[Uri] = new Argument[Uri] {

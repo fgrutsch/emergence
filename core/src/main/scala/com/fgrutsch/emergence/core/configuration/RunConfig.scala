@@ -18,10 +18,10 @@ package com.fgrutsch.emergence.core.configuration
 
 import cats.data.NonEmptyList
 import com.fgrutsch.emergence.core.configuration.EmergenceConfig.*
+import com.fgrutsch.emergence.core.utils.config.*
 import com.fgrutsch.emergence.core.vcs.model.Repository
 import com.fgrutsch.emergence.core.vcs.model.Repository.*
 import com.typesafe.config.Config
-import io.circe.config.syntax.*
 import io.circe.{Decoder, Error}
 
 final case class RunConfig(
@@ -45,7 +45,7 @@ object RunConfig {
     }
   }
 
-  def from(config: Config): Either[Error, RunConfig] = config.as[RunConfig]
+  def from(config: Config): Either[Error, RunConfig] = parse[RunConfig](config)
 
   given Decoder[RunConfig] = Decoder.instance { c =>
     for {

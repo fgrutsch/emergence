@@ -19,24 +19,18 @@ package com.fgrutsch.emergence.core.condition
 import cats.data.ValidatedNel
 import cats.syntax.all.*
 
-sealed abstract class ConditionOperator(val sign: String) {
+enum ConditionOperator(val sign: String) {
+  case Equal extends ConditionOperator("==")
+  case RegEx extends ConditionOperator("^$")
+
   override def toString: String = sign
 }
 
 object ConditionOperator {
-  case object Equal extends ConditionOperator("==")
-  case object RegEx extends ConditionOperator("^$")
 
-  def unapply(value: String): Option[ConditionOperator] = {
-    value match {
-      case Equal.sign => Equal.some
-      case RegEx.sign => RegEx.some
-      case _          => none
+  def unapply(value: String): Option[ConditionOperator] = ConditionOperator.values.find(_.sign == value)
 
-    }
-  }
-
-  def matches(condition: Condition & Condition.Matchable, input: String): ValidatedNel[String, Unit] = {
+  def matches(condition: Condition.Matchable, input: String): ValidatedNel[String, Unit] = {
     val operator = condition.operator
     val value    = condition.value
 

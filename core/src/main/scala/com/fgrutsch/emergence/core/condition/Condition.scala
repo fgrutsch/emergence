@@ -19,7 +19,12 @@ package com.fgrutsch.emergence.core.condition
 import cats.syntax.all.*
 import io.circe.Decoder
 
-sealed trait Condition
+enum Condition {
+  case BuildSuccessAll                                                  extends Condition
+  case Author(operator: ConditionOperator, value: ConditionValue)       extends Condition with Condition.Matchable
+  case SourceBranch(operator: ConditionOperator, value: ConditionValue) extends Condition with Condition.Matchable
+  case TargetBranch(operator: ConditionOperator, value: ConditionValue) extends Condition with Condition.Matchable
+}
 
 object Condition {
 
@@ -27,11 +32,6 @@ object Condition {
     def operator: ConditionOperator
     def value: ConditionValue
   }
-
-  case object BuildSuccessAll                                                       extends Condition
-  final case class Author(operator: ConditionOperator, value: ConditionValue)       extends Condition with Matchable
-  final case class SourceBranch(operator: ConditionOperator, value: ConditionValue) extends Condition with Matchable
-  final case class TargetBranch(operator: ConditionOperator, value: ConditionValue) extends Condition with Matchable
 
   def parse(value: String): Either[String, Condition] = {
     val condition          = parseSimpleCondition(value)
@@ -42,19 +42,19 @@ object Condition {
       .toRight(s"Not a valid condition: '$value'")
   }
 
+  private def parseSimpleCondition(value: String): Option[Condition] = {
+    value match {
+      case "build-success-all" => BuildSuccessAll.some
+      case _                   => none
+    }
+  }
+
   private def parseMatchableCondition(values: Array[String]): Option[Condition & Matchable] = {
     values match {
       case Array("author", ConditionOperator(operator), v)        => Author(operator, ConditionValue(v)).some
       case Array("source-branch", ConditionOperator(operator), v) => SourceBranch(operator, ConditionValue(v)).some
       case Array("target-branch", ConditionOperator(operator), v) => TargetBranch(operator, ConditionValue(v)).some
       case _                                                      => none
-    }
-  }
-
-  private def parseSimpleCondition(value: String): Option[Condition] = {
-    value match {
-      case "build-success-all" => BuildSuccessAll.some
-      case _                   => none
     }
   }
 

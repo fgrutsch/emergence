@@ -16,13 +16,17 @@
 
 package com.fgrutsch.emergence.core.utils
 
-import com.typesafe.config.{Config, ConfigFactory}
-import io.circe.{Decoder, ParsingFailure, yaml}
+import cats.syntax.all.*
+import com.typesafe.config.*
+import io.circe.{Decoder, ParsingFailure, parser, yaml, _}
 
+import java.lang.{Boolean => JBoolean, Double => JDouble, Integer => JInteger, Long => JLong}
 import scala.concurrent.duration.*
+import scala.jdk.CollectionConverters.*
 import scala.util.{Failure, Success, Try}
 
 object config {
+
   given Decoder[FiniteDuration] = Decoder.decodeString
     .map(s => Try(Duration(s)))
     .flatMap {
@@ -35,6 +39,13 @@ object config {
     yaml.parser
       .parse(ymlString)
       .map(json => ConfigFactory.parseString(json.toString))
+  }
+
+  def parse[A](config: Config, path: Option[String] = none)(using d: Decoder[A]): Either[Error, A] = {
+    val json = config.root.render(ConfigRenderOptions.concise)
+    parser
+      .parse(json)
+      .flatMap(d.decodeJson(_))
   }
 
 }

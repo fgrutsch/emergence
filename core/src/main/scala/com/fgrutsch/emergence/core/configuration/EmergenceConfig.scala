@@ -18,8 +18,8 @@ package com.fgrutsch.emergence.core.configuration
 
 import cats.syntax.all.*
 import com.fgrutsch.emergence.core.condition.Condition
+import com.fgrutsch.emergence.core.utils.config.*
 import com.typesafe.config.Config
-import io.circe.config.syntax.*
 import io.circe.{Decoder, Error}
 
 final case class EmergenceConfig(
@@ -31,7 +31,7 @@ object EmergenceConfig {
 
   val default: EmergenceConfig = EmergenceConfig(Nil, none)
 
-  def from(config: Config): Either[Error, EmergenceConfig] = config.as[EmergenceConfig]
+  def from(config: Config): Either[Error, EmergenceConfig] = parse[EmergenceConfig](config)
 
   given Decoder[EmergenceConfig] = Decoder.instance { c =>
     for {

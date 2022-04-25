@@ -16,13 +16,11 @@
 
 package com.fgrutsch.emergence.core.vcs.model
 
-sealed trait MergeCheck
+enum MergeCheck {
+  case Accept                  extends MergeCheck
+  case Decline(reason: String) extends MergeCheck
+}
 
 object MergeCheck {
-
-  case object Accept                       extends MergeCheck
-  final case class Decline(reason: String) extends MergeCheck
-
-  def cond(b: Boolean, noReason: => String): MergeCheck = if (b) Accept else Decline(noReason)
-
+  def cond(b: Boolean, declineReason: => String): MergeCheck = if (b) Accept else Decline(declineReason)
 }

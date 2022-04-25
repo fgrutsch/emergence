@@ -16,18 +16,11 @@
 
 package com.fgrutsch.emergence.core.vcs.model
 
-sealed trait BuildStatusState {
+enum BuildStatusState {
+  case Success, InProgress, Failed, Stopped
 
   def isSuccess: Boolean = this match {
     case BuildStatusState.Success => true
     case _                        => false
   }
-
-}
-
-object BuildStatusState {
-  case object Success    extends BuildStatusState
-  case object InProgress extends BuildStatusState
-  case object Failed     extends BuildStatusState
-  case object Stopped    extends BuildStatusState
 }

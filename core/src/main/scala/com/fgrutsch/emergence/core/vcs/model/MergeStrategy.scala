@@ -18,13 +18,11 @@ package com.fgrutsch.emergence.core.vcs.model
 
 import io.circe.Decoder
 
-sealed trait MergeStrategy
+enum MergeStrategy {
+  case MergeCommit, Squash, FastForward
+}
 
 object MergeStrategy {
-
-  case object MergeCommit extends MergeStrategy
-  case object Squash      extends MergeStrategy
-  case object FastForward extends MergeStrategy
 
   given Decoder[MergeStrategy] = Decoder.decodeString.flatMap {
     case "merge-commit" => Decoder.const(MergeCommit)
