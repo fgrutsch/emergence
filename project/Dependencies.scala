@@ -11,7 +11,7 @@ object Dependencies {
     "co.fs2"                          %% "fs2-io"                         % fs2Version,
     "co.fs2"                          %% "fs2-core"                       % fs2Version,
     "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml"        % "2.13.3",
-    "com.monovore"                    %% "decline-effect"                 % "2.2.0",
+    "com.monovore"                    %% "decline-effect"                 % "2.3.0",
     "com.softwaremill.sttp.client3"   %% "core"                           % sttpClientVersion,
     "com.softwaremill.sttp.client3"   %% "circe"                          % sttpClientVersion,
     "com.softwaremill.sttp.client3"   %% "async-http-client-backend-cats" % sttpClientVersion,
