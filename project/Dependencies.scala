@@ -4,7 +4,7 @@ object Dependencies {
 
   private val circeVersion      = "0.14.1"
   private val fs2Version        = "3.2.10"
-  private val sttpClientVersion = "3.6.2"
+  private val sttpClientVersion = "3.7.0"
 
   val core: Seq[ModuleID] = Seq(
     "ch.qos.logback"                   % "logback-classic"                % "1.2.11",
@@ -20,7 +20,7 @@ object Dependencies {
     "io.circe"                        %% "circe-parser"                   % circeVersion,
     "io.circe"                        %% "circe-yaml"                     % circeVersion,
     "org.scalatest"                   %% "scalatest"                      % "3.2.12" % Test,
-    "org.typelevel"                   %% "cats-effect"                    % "3.3.13",
+    "org.typelevel"                   %% "cats-effect"                    % "3.3.14",
     "org.typelevel"                   %% "log4cats-slf4j"                 % "2.3.2"
   )
 
