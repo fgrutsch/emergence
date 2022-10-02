@@ -2,7 +2,7 @@ import sbt._
 
 object Dependencies {
 
-  private val circeVersion      = "0.14.1"
+  private val circeVersion      = "0.14.3"
   private val fs2Version        = "3.3.0"
   private val sttpClientVersion = "3.8.0"
 
