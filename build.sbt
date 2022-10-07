@@ -86,4 +86,4 @@ lazy val docs = project
     githubWorkflowArtifactUpload := false
   )
   .dependsOn(core)
-  .enablePlugins(ParadoxSitePlugin)
+  .enablePlugins(ParadoxPlugin)

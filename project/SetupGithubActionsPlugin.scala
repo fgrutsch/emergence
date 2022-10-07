@@ -10,7 +10,7 @@ object SetupGithubActionsPlugin extends AutoPlugin {
   override def buildSettings: Seq[Setting[_]] = Seq(
     githubWorkflowTargetTags ++= Seq("v*"),
     githubWorkflowJavaVersions += JavaSpec.temurin("17"),
-    githubWorkflowBuild   := Seq(WorkflowStep.Sbt(List("codeVerify", "+test"))),
+    githubWorkflowBuild   := Seq(WorkflowStep.Sbt(List("codeVerify", "test"))),
     githubWorkflowPublish := Seq(WorkflowStep.Sbt(List("ci-release"))),
     githubWorkflowPublishTargetBranches += RefPredicate.StartsWith(Ref.Tag("v")),
     githubWorkflowPublish := Seq(
@@ -26,21 +26,21 @@ object SetupGithubActionsPlugin extends AutoPlugin {
     ),
     githubWorkflowPublishPostamble ++= List(
       WorkflowStep.Use(
-        UseRef.Public("docker", "login-action", "v1"),
+        UseRef.Public("docker", "login-action", "v2"),
         name = Some("Login to Docker Hub"),
         params = Map("username" -> "${{ secrets.DOCKER_USERNAME }}", "password" -> "${{ secrets.DOCKER_TOKEN }}")
       ),
       WorkflowStep.Run(List("sbt core/docker:publish"), name = Some("Publish docker image")),
       WorkflowStep.Run(
-        List("sbt docs/makeSite"),
+        List("sbt docs/paradox"),
         name = Some("Generate documentation"),
         cond = Some("startsWith(github.ref, 'refs/tags/v')")
       ),
       WorkflowStep.Use(
-        UseRef.Public("JamesIves", "github-pages-deploy-action", "4.1.6"),
+        UseRef.Public("JamesIves", "github-pages-deploy-action", "4.4.0"),
         name = Some("Publish gh-pages"),
         cond = Some("startsWith(github.ref, 'refs/tags/v')"),
-        params = Map("branch" -> "gh-pages", "folder" -> "docs/target/site")
+        params = Map("folder" -> "docs/target/paradox/site/main")
       )
     )
   )
