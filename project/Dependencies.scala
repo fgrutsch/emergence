@@ -15,13 +15,14 @@ object Dependencies {
     "com.softwaremill.sttp.client3"   %% "core"                           % sttpClientVersion,
     "com.softwaremill.sttp.client3"   %% "circe"                          % sttpClientVersion,
     "com.softwaremill.sttp.client3"   %% "async-http-client-backend-cats" % sttpClientVersion,
+    "com.softwaremill.sttp.client3"   %% "slf4j-backend"                  % sttpClientVersion,
     "com.typesafe"                     % "config"                         % "1.4.2",
     "io.circe"                        %% "circe-core"                     % circeVersion,
     "io.circe"                        %% "circe-parser"                   % circeVersion,
     "io.circe"                        %% "circe-yaml"                     % circeVersion,
     "org.scalatest"                   %% "scalatest"                      % "3.2.11" % Test,
     "org.typelevel"                   %% "cats-effect"                    % "3.3.11",
-    "org.typelevel"                   %% "log4cats-slf4j"                 % "2.2.0"
+    "org.typelevel"                   %% "log4cats-slf4j"                 % "2.3.1"
   )
 
   val organizeimports: ModuleID = "com.github.liancheng" %% "organize-imports" % "0.6.0"

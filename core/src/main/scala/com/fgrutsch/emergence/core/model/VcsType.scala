@@ -18,6 +18,7 @@ package com.fgrutsch.emergence.core.model
 
 enum VcsType(val underlying: String) {
   case BitbucketCloud extends VcsType("bitbucket-cloud")
+  case Github         extends VcsType("github")
 
   override def toString: String = underlying
 }

@@ -35,8 +35,8 @@ class MockVcsAlg extends VcsAlg[Eff] {
     Kleisli.pure(pr1 :: pr2 :: pr3 :: Nil)
   }
 
-  override def listBuildStatuses(repo: Repository, number: PullRequestNumber): Eff[List[BuildStatus]] = {
-    number match {
+  override def listBuildStatuses(repo: Repository, pr: PullRequest): Eff[List[BuildStatus]] = {
+    pr.number match {
       case PullRequestNumber(1) =>
         val bs = BuildStatus(BuildStatusName("Build and Test"), BuildStatusState.Success)
         Kleisli.pure(bs :: Nil)
@@ -47,7 +47,7 @@ class MockVcsAlg extends VcsAlg[Eff] {
         val bs = BuildStatus(BuildStatusName("Build and Test"), BuildStatusState.Success)
         Kleisli.pure(bs :: Nil)
       case _ =>
-        throw new IllegalArgumentException(s"listBuildStatuses for PR #${number} not mocked!!!")
+        throw new IllegalArgumentException(s"listBuildStatuses for PR #${pr.number} not mocked!!!")
     }
   }
 

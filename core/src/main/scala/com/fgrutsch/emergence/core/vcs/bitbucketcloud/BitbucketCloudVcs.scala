@@ -40,27 +40,27 @@ object BitbucketCloudVcs {
 final class BitbucketCloudVcs[F[_]](using backend: SttpBackend[F, Any], settings: VcsSettings, F: MonadThrow[F])
     extends VcsAlg[F] {
 
+  private val bitbucketRequest = basicRequest.auth.basic(settings.user.login, settings.user.secret)
+
   override def listPullRequests(repo: Repository): F[List[PullRequest]] = {
     val uri = settings.apiHost
       .addPath("repositories", repo.owner, repo.name, "pullrequests")
       .addParam("state", "OPEN")
       .addParam("pagelen", "50")
 
-    basicRequest
+    bitbucketRequest
       .get(uri)
-      .withAuthentication()
       .response(asJson[Page[PullRequest]])
       .send(backend)
       .flatMap(r => F.fromEither(r.body.map(_.items)))
   }
 
-  override def listBuildStatuses(repo: Repository, number: PullRequestNumber): F[List[BuildStatus]] = {
+  override def listBuildStatuses(repo: Repository, pr: PullRequest): F[List[BuildStatus]] = {
     val uri =
-      settings.apiHost.addPath("repositories", repo.owner, repo.name, "pullrequests", number.toString, "statuses")
+      settings.apiHost.addPath("repositories", repo.owner, repo.name, "pullrequests", pr.number.toString, "statuses")
 
-    basicRequest
+    bitbucketRequest
       .get(uri)
-      .withAuthentication()
       .response(asJson[Page[BuildStatus]])
       .send(backend)
       .flatMap(r => F.fromEither(r.body.map(_.items)))
@@ -74,9 +74,8 @@ final class BitbucketCloudVcs[F[_]](using backend: SttpBackend[F, Any], settings
     val uri  = settings.apiHost.addPath("repositories", repo.owner, repo.name, "pullrequests", number.toString, "merge")
     val body = MergePullRequestRequest(closeSourceBranch, mergeStrategy)
 
-    basicRequest
+    bitbucketRequest
       .post(uri)
-      .withAuthentication()
       .body(body)
       .response(asJson[JsonObject]) // Verifies 2xx response
       .send(backend)
@@ -87,10 +86,9 @@ final class BitbucketCloudVcs[F[_]](using backend: SttpBackend[F, Any], settings
     val uri =
       settings.apiHost.addPath("repositories", repo.owner, repo.name, "pullrequests", number.toString, "diffstat")
 
-    val diffStatRequest = basicRequest
+    val diffStatRequest = bitbucketRequest
       .get(uri)
       .followRedirects(false)
-      .withAuthentication()
       .response(BitbucketCloudVcs.asRedirect)
 
     val parseRedirectUri = (response: Response[Either[Unit, Unit]]) => {
@@ -103,7 +101,7 @@ final class BitbucketCloudVcs[F[_]](using backend: SttpBackend[F, Any], settings
     for {
       resp1  <- diffStatRequest.send(backend)
       newUrl <- F.fromEither(parseRedirectUri(resp1).leftMap(new IllegalArgumentException(_)))
-      resp2  <- basicRequest.get(newUrl).withAuthentication().response(asJson[Page[DiffStatResponse]]).send(backend)
+      resp2  <- bitbucketRequest.get(newUrl).response(asJson[Page[DiffStatResponse]]).send(backend)
       result <- F.fromEither(resp2.body)
     } yield MergeCheck.cond(result.items.forall(_.isMergeable()), "PR has merge conflicts.")
   }
@@ -112,16 +110,11 @@ final class BitbucketCloudVcs[F[_]](using backend: SttpBackend[F, Any], settings
     val uri =
       settings.apiHost.addPath("repositories", repo.owner, repo.name, "src", "master", settings.repositoryConfigName)
 
-    basicRequest
+    bitbucketRequest
       .get(uri)
-      .withAuthentication()
       .response(asEither(ignore, asStringAlways).map(_.toOption))
       .send(backend)
       .map(_.body.map(RepoFile(_)))
-  }
-
-  extension (request: Request[Either[String, String], Any]) {
-    def withAuthentication() = request.auth.basic(settings.user.login, settings.user.secret)
   }
 
 }

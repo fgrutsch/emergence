@@ -49,7 +49,7 @@ docker run -v $HOST_DIR:/opt/emergence -it fgrutsch/emergence:latest \
 
 To install eMERGEnce as an executable you can use coursier's [install](https://get-coursier.io/docs/cli-install) command. The only thing you have to do is to run:
 
-`coursier install --channel http://coursier.fgrutsch.com emergence`
+`cs install --channel http://coursier.fgrutsch.com emergence`
 
 To get a list of available options run: `emergence --help` and you should get the following output:
 

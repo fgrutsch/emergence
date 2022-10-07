@@ -81,7 +81,7 @@ class CliOptionsSpec extends BaseSpec {
     val result = testCommand.parse(args).left.value
 
     result.errors mustBe {
-      List("Value must be one of: bitbucket-cloud")
+      List("Value must be one of: bitbucket-cloud or github")
     }
   }
 

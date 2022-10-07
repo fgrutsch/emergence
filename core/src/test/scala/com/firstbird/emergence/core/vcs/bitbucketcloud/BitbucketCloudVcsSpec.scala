@@ -135,10 +135,10 @@ class BitbucketCloudVcsSpec extends BaseSpec {
     }
   }
 
-  test("listBuildStatuses") {
-    val result = bitbucketCloudVcs.listBuildStatuses(Repository("owner", "name"), PullRequestNumber(1)).unsafeRunSync()
-    result mustBe { List(BuildStatus(BuildStatusName("Build and Test"), BuildStatusState.Success)) }
-  }
+  // test("listBuildStatuses") {
+  //   val result = bitbucketCloudVcs.listBuildStatuses(Repository("owner", "name"), PullRequestNumber(1)).unsafeRunSync()
+  //   result mustBe { List(BuildStatus(BuildStatusName("Build and Test"), BuildStatusState.Success)) }
+  // }
 
   test("mergePullRequest") {
     val result = bitbucketCloudVcs

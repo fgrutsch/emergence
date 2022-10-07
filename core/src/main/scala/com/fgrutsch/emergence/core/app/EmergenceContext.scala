@@ -23,16 +23,23 @@ import com.fgrutsch.emergence.core.merge.MergeAlg
 import com.fgrutsch.emergence.core.model.Settings
 import com.fgrutsch.emergence.core.vcs.*
 import org.typelevel.log4cats.Logger
-import org.typelevel.log4cats.slf4j.Slf4jLogger
+import org.typelevel.log4cats.slf4j.*
 import sttp.client3.*
+import cats.syntax.all.*
 import sttp.client3.asynchttpclient.cats.AsyncHttpClientCatsBackend
+import sttp.client3.logging.slf4j.Slf4jLoggingBackend
+
 
 object EmergenceContext {
 
-  def apply[F[_]: Async](options: CliOptions): Resource[F, EmergenceAlg[F]] = {
+  
+  def apply[F[_]: Async: Sync](options: CliOptions): Resource[F, EmergenceAlg[F]] = {
+    val l = Slf4jFactory[F].getLogger
+
     for {
       given Logger[F]           <- Resource.liftK(Slf4jLogger.create[F])
-      given SttpBackend[F, Any] <- AsyncHttpClientCatsBackend.resource[F]()
+      b: SttpBackend[F, Any] <- AsyncHttpClientCatsBackend.resource[F]()
+      given SttpBackend[F, Any] <- Resource.liftK(Slf4jLoggingBackend(b, logResponseBody = true).pure[F])
       given Settings            <- Resource.liftK(Settings.from[F](options))
     } yield {
       val settings                        = summon[Settings]

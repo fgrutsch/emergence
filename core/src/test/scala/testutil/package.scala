@@ -1,6 +1,7 @@
 import cats.data.Kleisli
 import cats.effect.{IO, Ref}
 
+// TODO remove package object
 package object testutil {
 
   type Eff[A] = Kleisli[IO, Ref[IO, TestState], A]

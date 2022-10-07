@@ -48,7 +48,7 @@ class MergeAlg[F[_]: Temporal: Concurrent](using
 
   private def filterByConditions(repo: Repository, emergenceConfig: EmergenceConfig, pr: PullRequest) = {
     for {
-      buildStatuses <- vcsAlg.listBuildStatuses(repo, pr.number)
+      buildStatuses <- vcsAlg.listBuildStatuses(repo, pr)
       _             <- logger.info(s"Pull request has build statuses: ${bulletPointed(buildStatuses)}")
       input         <- Input(pr, buildStatuses).pure[F]
       matchResult   <- conditionMatcherAlg.checkConditions(emergenceConfig.conditions, input).pure[F]
