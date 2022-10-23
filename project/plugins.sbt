@@ -1,6 +1,6 @@
 addSbtPlugin("ch.epfl.scala"         % "sbt-scalafix"        % "0.10.4")
 addSbtPlugin("com.codecommit"        % "sbt-github-actions"  % "0.14.2")
-addSbtPlugin("com.github.sbt"        % "sbt-ci-release"      % "1.5.10")
+addSbtPlugin("com.github.sbt"        % "sbt-ci-release"      % "1.5.11")
 addSbtPlugin("com.github.sbt"        % "sbt-native-packager" % "1.9.11")
 addSbtPlugin("com.lightbend.paradox" % "sbt-paradox"         % "0.10.2")
 addSbtPlugin("de.heikoseeberger"     % "sbt-header"          % "5.7.0")
