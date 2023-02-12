@@ -1,7 +1,7 @@
 addSbtPlugin("ch.epfl.scala"         % "sbt-scalafix"        % "0.10.4")
 addSbtPlugin("com.codecommit"        % "sbt-github-actions"  % "0.14.2")
 addSbtPlugin("com.github.sbt"        % "sbt-ci-release"      % "1.5.11")
-addSbtPlugin("com.github.sbt"        % "sbt-native-packager" % "1.9.11")
+addSbtPlugin("com.github.sbt"        % "sbt-native-packager" % "1.9.14")
 addSbtPlugin("com.lightbend.paradox" % "sbt-paradox"         % "0.10.3")
 addSbtPlugin("de.heikoseeberger"     % "sbt-header"          % "5.9.0")
 addSbtPlugin("org.scalameta"         % "sbt-scalafmt"        % "2.5.0")
