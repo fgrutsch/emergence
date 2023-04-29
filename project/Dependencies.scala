@@ -2,15 +2,15 @@ import sbt._
 
 object Dependencies {
 
-  private val circeVersion      = "0.14.3"
-  private val fs2Version        = "3.4.0"
-  private val sttpClientVersion = "3.8.2"
+  private val circeVersion      = "0.14.5"
+  private val fs2Version        = "3.6.1"
+  private val sttpClientVersion = "3.8.15"
 
   val core: Seq[ModuleID] = Seq(
-    "ch.qos.logback"                   % "logback-classic"                % "1.4.5",
+    "ch.qos.logback"                   % "logback-classic"                % "1.4.7",
     "co.fs2"                          %% "fs2-io"                         % fs2Version,
     "co.fs2"                          %% "fs2-core"                       % fs2Version,
-    "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml"        % "2.14.1",
+    "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml"        % "2.14.2",
     "com.monovore"                    %% "decline-effect"                 % "2.4.1",
     "com.softwaremill.sttp.client3"   %% "core"                           % sttpClientVersion,
     "com.softwaremill.sttp.client3"   %% "circe"                          % sttpClientVersion,
@@ -19,9 +19,9 @@ object Dependencies {
     "io.circe"                        %% "circe-core"                     % circeVersion,
     "io.circe"                        %% "circe-parser"                   % circeVersion,
     "io.circe"                        %% "circe-yaml"                     % "0.14.2",
-    "org.scalatest"                   %% "scalatest"                      % "3.2.14" % Test,
-    "org.typelevel"                   %% "cats-effect"                    % "3.4.3",
-    "org.typelevel"                   %% "log4cats-slf4j"                 % "2.5.0"
+    "org.scalatest"                   %% "scalatest"                      % "3.2.15" % Test,
+    "org.typelevel"                   %% "cats-effect"                    % "3.4.10",
+    "org.typelevel"                   %% "log4cats-slf4j"                 % "2.6.0"
   )
 
   val organizeimports: ModuleID = "com.github.liancheng" %% "organize-imports" % "0.6.0"
