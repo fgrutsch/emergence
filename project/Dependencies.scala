@@ -19,7 +19,7 @@ object Dependencies {
     "io.circe"                        %% "circe-core"                     % circeVersion,
     "io.circe"                        %% "circe-parser"                   % circeVersion,
     "io.circe"                        %% "circe-yaml"                     % "0.14.2",
-    "org.scalatest"                   %% "scalatest"                      % "3.2.16" % Test,
+    "org.scalatest"                   %% "scalatest"                      % "3.2.15" % Test,
     "org.typelevel"                   %% "cats-effect"                    % "3.4.10",
     "org.typelevel"                   %% "log4cats-slf4j"                 % "2.6.0"
   )
