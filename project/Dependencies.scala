@@ -4,7 +4,7 @@ object Dependencies {
 
   private val circeVersion      = "0.14.5"
   private val fs2Version        = "3.8.0"
-  private val sttpClientVersion = "3.8.16"
+  private val sttpClientVersion = "3.9.0"
 
   val core: Seq[ModuleID] = Seq(
     "ch.qos.logback"                   % "logback-classic"                % "1.4.11",
