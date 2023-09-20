@@ -3,7 +3,7 @@ import sbt._
 object Dependencies {
 
   private val circeVersion      = "0.14.5"
-  private val fs2Version        = "3.9.1"
+  private val fs2Version        = "3.9.2"
   private val sttpClientVersion = "3.9.0"
 
   val core: Seq[ModuleID] = Seq(
@@ -19,7 +19,7 @@ object Dependencies {
     "io.circe"                        %% "circe-core"                     % circeVersion,
     "io.circe"                        %% "circe-parser"                   % circeVersion,
     "io.circe"                        %% "circe-yaml"                     % "0.14.2",
-    "org.scalatest"                   %% "scalatest"                      % "3.2.16" % Test,
+    "org.scalatest"                   %% "scalatest"                      % "3.2.17" % Test,
     "org.typelevel"                   %% "cats-effect"                    % "3.5.1",
     "org.typelevel"                   %% "log4cats-slf4j"                 % "2.6.0"
   )
