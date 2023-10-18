@@ -15,7 +15,7 @@ object Dependencies {
     "com.softwaremill.sttp.client3"   %% "core"                           % sttpClientVersion,
     "com.softwaremill.sttp.client3"   %% "circe"                          % sttpClientVersion,
     "com.softwaremill.sttp.client3"   %% "async-http-client-backend-cats" % sttpClientVersion,
-    "com.typesafe"                     % "config"                         % "1.4.2",
+    "com.typesafe"                     % "config"                         % "1.4.3",
     "io.circe"                        %% "circe-core"                     % circeVersion,
     "io.circe"                        %% "circe-parser"                   % circeVersion,
     "io.circe"                        %% "circe-yaml"                     % "0.14.2",
