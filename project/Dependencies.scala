@@ -10,7 +10,7 @@ object Dependencies {
     "ch.qos.logback"                   % "logback-classic"                % "1.4.11",
     "co.fs2"                          %% "fs2-io"                         % fs2Version,
     "co.fs2"                          %% "fs2-core"                       % fs2Version,
-    "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml"        % "2.14.3",
+    "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml"        % "2.15.3",
     "com.monovore"                    %% "decline-effect"                 % "2.4.1",
     "com.softwaremill.sttp.client3"   %% "core"                           % sttpClientVersion,
     "com.softwaremill.sttp.client3"   %% "circe"                          % sttpClientVersion,
