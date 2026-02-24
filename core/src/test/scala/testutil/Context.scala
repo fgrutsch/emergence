@@ -3,15 +3,20 @@ package testutil
 import cats.data.NonEmptyList
 import cats.effect.unsafe.IORuntime
 import cats.syntax.all._
-import com.fgrutsch.emergence.core.app._
-import com.fgrutsch.emergence.core.condition.{ConditionOperator, ConditionValue, _}
-import com.fgrutsch.emergence.core.configuration.RunConfig.RepositoryConfig
-import com.fgrutsch.emergence.core.configuration.{EmergenceConfig, MergeConfig, _}
-import com.fgrutsch.emergence.core.merge.MergeAlg
-import com.fgrutsch.emergence.core.model.{Settings, VcsType}
-import com.fgrutsch.emergence.core.vcs.VcsSettings.VcsUser
-import com.fgrutsch.emergence.core.vcs.model.{MergeStrategy, Repository}
-import com.fgrutsch.emergence.core.vcs.{VcsSettings, _}
+import io.github.fgrutsch.emergence.core.app.EmergenceAlg
+import io.github.fgrutsch.emergence.core.condition.{Condition, ConditionMatcherAlg, ConditionOperator, ConditionValue}
+import io.github.fgrutsch.emergence.core.configuration.RunConfig.RepositoryConfig
+import io.github.fgrutsch.emergence.core.configuration.{
+  EmergenceConfig,
+  EmergenceConfigResolverAlg,
+  MergeConfig,
+  RunConfig
+}
+import io.github.fgrutsch.emergence.core.merge.MergeAlg
+import io.github.fgrutsch.emergence.core.model.{Settings, VcsType}
+import io.github.fgrutsch.emergence.core.vcs.VcsSettings.VcsUser
+import io.github.fgrutsch.emergence.core.vcs.model.{MergeStrategy, Repository}
+import io.github.fgrutsch.emergence.core.vcs.{MockVcsAlg, VcsAlg, VcsSettings}
 import org.typelevel.log4cats.Logger
 import sttp.model.Uri._
 
