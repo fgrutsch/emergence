@@ -9,9 +9,13 @@
 
 eMERGEnce is a bot that helps you to get rid of all your emerged pull requests automatically based on configurable conditions.
 
+Note: This is a fork of the origin repository [emergence](https://github.com/firstbirdtech/emergence) which is not
+really maintained anymore. Due to leaving the organization I was not allowed to move the repository to my own github
+account and therefore I had to fork it. 
+
 ## Documentation
 
-The full documentation can be found [here](https://emergence.fgrutsch.com).
+The full documentation can be found [here](https://fgrutsch.github.io/emergence).
 
 ## Quickstart
 
