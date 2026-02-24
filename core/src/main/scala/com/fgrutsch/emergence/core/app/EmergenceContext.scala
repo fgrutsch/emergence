@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Emergence contributors
+ * Copyright 2026 Emergence contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,15 @@
 
 package com.fgrutsch.emergence.core.app
 
-import cats.effect.{Resource, *}
+import cats.effect.{Resource, _}
 import com.fgrutsch.emergence.core.condition.ConditionMatcherAlg
 import com.fgrutsch.emergence.core.configuration.EmergenceConfigResolverAlg
 import com.fgrutsch.emergence.core.merge.MergeAlg
 import com.fgrutsch.emergence.core.model.Settings
-import com.fgrutsch.emergence.core.vcs.*
+import com.fgrutsch.emergence.core.vcs._
 import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.slf4j.Slf4jLogger
-import sttp.client3.*
+import sttp.client3._
 import sttp.client3.asynchttpclient.cats.AsyncHttpClientCatsBackend
 
 object EmergenceContext {

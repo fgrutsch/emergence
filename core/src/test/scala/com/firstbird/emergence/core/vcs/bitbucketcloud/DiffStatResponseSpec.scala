@@ -1,6 +1,6 @@
 package com.fgrutsch.emergence.core.vcs.bitbucketcloud
 
-import io.circe.parser.*
+import io.circe.parser._
 import testutil.BaseSpec
 
 class DiffStatResponseSpec extends BaseSpec {

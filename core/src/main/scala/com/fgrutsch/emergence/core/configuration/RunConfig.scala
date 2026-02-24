@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Emergence contributors
+ * Copyright 2026 Emergence contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@
 package com.fgrutsch.emergence.core.configuration
 
 import cats.data.NonEmptyList
-import com.fgrutsch.emergence.core.configuration.EmergenceConfig.*
-import com.fgrutsch.emergence.core.utils.config.*
+import com.fgrutsch.emergence.core.configuration.EmergenceConfig._
+import com.fgrutsch.emergence.core.utils.config._
 import com.fgrutsch.emergence.core.vcs.model.Repository
-import com.fgrutsch.emergence.core.vcs.model.Repository.*
+import com.fgrutsch.emergence.core.vcs.model.Repository._
 import com.typesafe.config.Config
 import io.circe.{Decoder, Error}
 

@@ -2,20 +2,20 @@ package testutil
 
 import cats.data.NonEmptyList
 import cats.effect.unsafe.IORuntime
-import cats.syntax.all.*
-import com.fgrutsch.emergence.core.app.*
-import com.fgrutsch.emergence.core.condition.{ConditionOperator, ConditionValue, *}
+import cats.syntax.all._
+import com.fgrutsch.emergence.core.app._
+import com.fgrutsch.emergence.core.condition.{ConditionOperator, ConditionValue, _}
 import com.fgrutsch.emergence.core.configuration.RunConfig.RepositoryConfig
-import com.fgrutsch.emergence.core.configuration.{EmergenceConfig, MergeConfig, *}
+import com.fgrutsch.emergence.core.configuration.{EmergenceConfig, MergeConfig, _}
 import com.fgrutsch.emergence.core.merge.MergeAlg
 import com.fgrutsch.emergence.core.model.{Settings, VcsType}
 import com.fgrutsch.emergence.core.vcs.VcsSettings.VcsUser
 import com.fgrutsch.emergence.core.vcs.model.{MergeStrategy, Repository}
-import com.fgrutsch.emergence.core.vcs.{VcsSettings, *}
+import com.fgrutsch.emergence.core.vcs.{VcsSettings, _}
 import org.typelevel.log4cats.Logger
-import sttp.model.Uri.*
+import sttp.model.Uri._
 
-import scala.concurrent.duration.*
+import scala.concurrent.duration._
 
 private[testutil] trait Context {
 

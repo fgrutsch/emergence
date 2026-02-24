@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Emergence contributors
+ * Copyright 2026 Emergence contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,14 @@ package com.fgrutsch.emergence.core.app
 import cats.MonadThrow
 import cats.effect.ExitCode
 import cats.effect.kernel.Concurrent
-import cats.instances.all.*
-import cats.syntax.all.*
+import cats.instances.all._
+import cats.syntax.all._
 import com.fgrutsch.emergence.BuildInfo
 import com.fgrutsch.emergence.core.configuration.EmergenceConfigResolverAlg
 import com.fgrutsch.emergence.core.configuration.RunConfig.RepositoryConfig
 import com.fgrutsch.emergence.core.merge.MergeAlg
 import com.fgrutsch.emergence.core.model.Settings
-import com.fgrutsch.emergence.core.utils.logging.*
+import com.fgrutsch.emergence.core.utils.logging._
 import fs2.Stream
 import org.typelevel.log4cats.Logger
 

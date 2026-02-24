@@ -1,21 +1,17 @@
 import java.time.LocalDate
 
-ThisBuild / scalafixDependencies += Dependencies.organizeimports
 ThisBuild / dynverSeparator := "-" // Default uses '+' which is not valid for docker tags
-ThisBuild / scalaVersion    := "3.3.1"
+ThisBuild / scalaVersion    := "3.8.1"
 
 addCommandAlias("codeFmt", ";headerCreate;scalafmtAll;scalafmtSbt;scalafixAll")
 addCommandAlias("codeVerify", ";scalafmtCheckAll;scalafmtSbtCheck;scalafixAll --check;headerCheck")
 
 lazy val commonSettings = Seq(
-  organization           := "com.fgrutsch.emergence",
-  sonatypeCredentialHost := "s01.oss.sonatype.org",
-  sonatypeRepository     := "https://s01.oss.sonatype.org/service/local",
-  sonatypeProfileName    := "com.fgrutsch",
-  startYear              := Some(2020),
-  homepage               := Some(url("https://github.com/fgrutsch/emergence")),
-  licenses               := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
-  scmInfo := Some(
+  organization := "com.fgrutsch.emergence",
+  startYear    := Some(2020),
+  homepage     := Some(url("https://github.com/fgrutsch/emergence")),
+  licenses     := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
+  scmInfo      := Some(
     ScmInfo(homepage.value.get, "scm:git:https://github.com/fgrutsch/emergence.git")
   ),
   developers += Developer(
@@ -32,8 +28,8 @@ lazy val commonSettings = Seq(
     "-feature",
     "-language:higherKinds",
     "-unchecked",
-    "-Ysafe-init",
-    "-Xfatal-warnings"
+    "-Wsafe-init",
+    "-Werror"
   ),
   headerLicense     := Some(HeaderLicense.ALv2(LocalDate.now.getYear.toString, "Emergence contributors")),
   semanticdbEnabled := true,
@@ -73,7 +69,7 @@ lazy val core = project
     }.taskValue
   )
   .settings(
-    dockerBaseImage      := "eclipse-temurin:11",
+    dockerBaseImage      := "eclipse-temurin:21",
     Docker / packageName := "fgrutsch/emergence",
     dockerUpdateLatest   := true
   )

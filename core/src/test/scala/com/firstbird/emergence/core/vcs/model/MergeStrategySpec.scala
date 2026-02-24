@@ -1,6 +1,6 @@
 package com.fgrutsch.emergence.core.vcs.bitbucketcloud
 
-import cats.syntax.all.*
+import cats.syntax.all._
 import com.fgrutsch.emergence.core.vcs.model.MergeStrategy
 import io.circe.{DecodingFailure, Json}
 import org.scalatest.prop.TableDrivenPropertyChecks

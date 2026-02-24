@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Emergence contributors
+ * Copyright 2026 Emergence contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@
 package com.fgrutsch.emergence.core.condition
 
 import cats.data.{NonEmptyList, ValidatedNel}
-import cats.syntax.all.*
+import cats.syntax.all._
 import com.fgrutsch.emergence.core.condition.Condition
-import com.fgrutsch.emergence.core.condition.ConditionMatcher.*
-import com.fgrutsch.emergence.core.vcs.model.*
+import com.fgrutsch.emergence.core.condition.ConditionMatcher._
+import com.fgrutsch.emergence.core.vcs.model._
 
 class ConditionMatcherAlg[F[_]] {
 
@@ -46,7 +46,7 @@ class ConditionMatcherAlg[F[_]] {
   }
 
   private given bsaMatcher: ConditionMatcher[Condition.BuildSuccessAll.type, List[BuildStatus]] = {
-    case (condition, Nil) => "No build statuses. At least one required for this condition.".invalidNel
+    case (condition, Nil)    => "No build statuses. At least one required for this condition.".invalidNel
     case (condiition, input) =>
       input
         .map { bs =>

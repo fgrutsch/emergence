@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Emergence contributors
+ * Copyright 2026 Emergence contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 package com.fgrutsch.emergence.core.vcs
 
-import com.fgrutsch.emergence.core.vcs.model.*
+import com.fgrutsch.emergence.core.vcs.model._
 
 trait VcsAlg[F[_]] {
 

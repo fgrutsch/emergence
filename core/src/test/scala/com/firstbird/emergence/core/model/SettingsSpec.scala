@@ -2,18 +2,18 @@ package com.fgrutsch.emergence.core.model
 
 import cats.data.NonEmptyList
 import cats.effect.IO
-import cats.syntax.all.*
+import cats.syntax.all._
 import com.fgrutsch.emergence.core.app.CliOptions
-import com.fgrutsch.emergence.core.condition.*
+import com.fgrutsch.emergence.core.condition._
 import com.fgrutsch.emergence.core.configuration.RunConfig.RepositoryConfig
-import com.fgrutsch.emergence.core.configuration.{RunConfig, *}
+import com.fgrutsch.emergence.core.configuration.{RunConfig, _}
 import com.fgrutsch.emergence.core.model.{Settings, VcsType}
-import com.fgrutsch.emergence.core.vcs.model.*
-import sttp.model.Uri.*
+import com.fgrutsch.emergence.core.vcs.model._
+import sttp.model.Uri._
 import testutil.BaseSpec
 
 import java.nio.file.Paths
-import scala.concurrent.duration.*
+import scala.concurrent.duration._
 
 class SettingsSpec extends BaseSpec {
 

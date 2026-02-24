@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Emergence contributors
+ * Copyright 2026 Emergence contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
 
 package com.fgrutsch.emergence.core.app
 
-import cats.data.*
-import cats.syntax.all.*
-import com.fgrutsch.emergence.core.configuration.*
+import cats.data._
+import cats.syntax.all._
+import com.fgrutsch.emergence.core.configuration._
 import com.fgrutsch.emergence.core.model.VcsType
 import com.fgrutsch.emergence.core.utils.config.configFromYaml
 import com.monovore.decline.{Argument, Opts}

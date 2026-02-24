@@ -1,9 +1,9 @@
 package com.fgrutsch.emergence.core.vcs.bitbucketcloud
 
 import cats.effect.IO
-import cats.syntax.all.*
-import com.fgrutsch.emergence.core.vcs.model.*
-import io.circe.parser.*
+import cats.syntax.all._
+import com.fgrutsch.emergence.core.vcs.model._
+import io.circe.parser._
 import sttp.client3.Response
 import sttp.client3.asynchttpclient.cats.AsyncHttpClientCatsBackend
 import sttp.client3.testing.SttpBackendStub

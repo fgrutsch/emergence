@@ -1,6 +1,6 @@
 package com.fgrutsch.emergence.core.condition
 
-import cats.syntax.all.*
+import cats.syntax.all._
 import com.fgrutsch.emergence.core.condition.Condition.BuildSuccessAll
 import org.scalatest.prop.TableDrivenPropertyChecks
 import testutil.BaseSpec

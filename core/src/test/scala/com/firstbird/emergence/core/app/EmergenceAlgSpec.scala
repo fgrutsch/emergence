@@ -1,7 +1,7 @@
 package com.fgrutsch.emergence.core.app
 
-import com.fgrutsch.emergence.core.vcs.model.*
-import testutil.*
+import com.fgrutsch.emergence.core.vcs.model._
+import testutil._
 
 class EmergenceAlgSpec extends BaseSpec {
 
