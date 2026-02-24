@@ -1,15 +1,15 @@
 package com.fgrutsch.emergence.core.vcs.bitbucketcloud
 
 import cats.data.NonEmptyList
-import cats.syntax.all.*
-import com.fgrutsch.emergence.core.condition.*
+import cats.syntax.all._
+import com.fgrutsch.emergence.core.condition._
 import com.fgrutsch.emergence.core.configuration.RunConfig.RepositoryConfig
 import com.fgrutsch.emergence.core.configuration.{EmergenceConfig, MergeConfig, RunConfig}
 import com.fgrutsch.emergence.core.vcs.model.{MergeStrategy, Repository}
 import com.typesafe.config.ConfigFactory
 import testutil.BaseSpec
 
-import scala.concurrent.duration.*
+import scala.concurrent.duration._
 
 class RunConfigSpec extends BaseSpec {
 

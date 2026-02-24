@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Emergence contributors
+ * Copyright 2026 Emergence contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@ package com.fgrutsch.emergence.core.merge
 import cats.MonadThrow
 import cats.data.Validated.{Invalid, Valid}
 import cats.effect.kernel.{Concurrent, Temporal}
-import cats.syntax.all.*
+import cats.syntax.all._
 import com.fgrutsch.emergence.core.condition.{ConditionMatcherAlg, Input}
 import com.fgrutsch.emergence.core.configuration.{EmergenceConfig, MergeConfig}
-import com.fgrutsch.emergence.core.utils.logging.*
+import com.fgrutsch.emergence.core.utils.logging._
 import com.fgrutsch.emergence.core.vcs.VcsAlg
 import com.fgrutsch.emergence.core.vcs.model.{MergeCheck, PullRequest, Repository}
 import fs2.Stream
@@ -52,7 +52,7 @@ class MergeAlg[F[_]: Temporal: Concurrent](using
       _             <- logger.info(s"Pull request has build statuses: ${bulletPointed(buildStatuses)}")
       input         <- Input(pr, buildStatuses).pure[F]
       matchResult   <- conditionMatcherAlg.checkConditions(emergenceConfig.conditions, input).pure[F]
-      _ <- matchResult match {
+      _             <- matchResult match {
         case Invalid(e) => logger.info(s"Ignoring pull request as not all conditions match: ${bulletPointed(e.toList)}")
         case Valid(_)   => logger.info("Pull request matches all configured conditions.")
       }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Emergence contributors
+ * Copyright 2026 Emergence contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 
 package com.fgrutsch.emergence.core.vcs.bitbucketcloud
 
-import com.fgrutsch.emergence.core.vcs.bitbucketcloud.Encoding.{mergeStrategyEncoder, *}
-import com.fgrutsch.emergence.core.vcs.model.*
+import com.fgrutsch.emergence.core.vcs.bitbucketcloud.Encoding.{mergeStrategyEncoder, _}
+import com.fgrutsch.emergence.core.vcs.model._
 import io.circe.{Encoder, Json}
 
 final private[bitbucketcloud] case class MergePullRequestRequest(

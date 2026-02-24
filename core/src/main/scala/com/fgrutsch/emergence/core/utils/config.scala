@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Emergence contributors
+ * Copyright 2026 Emergence contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,13 @@
 
 package com.fgrutsch.emergence.core.utils
 
-import cats.syntax.all.*
-import com.typesafe.config.*
+import cats.syntax.all._
+import com.typesafe.config._
 import io.circe.{Decoder, ParsingFailure, parser, yaml, _}
 
 import java.lang.{Boolean => JBoolean, Double => JDouble, Integer => JInteger, Long => JLong}
-import scala.concurrent.duration.*
-import scala.jdk.CollectionConverters.*
+import scala.concurrent.duration._
+import scala.jdk.CollectionConverters._
 import scala.util.{Failure, Success, Try}
 
 object config {

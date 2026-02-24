@@ -1,6 +1,6 @@
 package com.fgrutsch.emergence.core.utils
 
-import cats.syntax.all.*
+import cats.syntax.all._
 import com.fgrutsch.emergence.core.utils.config.configFromYaml
 import com.fgrutsch.emergence.core.utils.config.given
 import com.typesafe.config.ConfigFactory
@@ -8,7 +8,7 @@ import io.circe.{DecodingFailure, Json}
 import org.scalatest.prop.TableDrivenPropertyChecks
 import testutil.BaseSpec
 
-import scala.concurrent.duration.*
+import scala.concurrent.duration._
 
 class ConfigSpec extends BaseSpec with TableDrivenPropertyChecks {
 

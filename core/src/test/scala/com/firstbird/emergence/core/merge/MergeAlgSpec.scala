@@ -1,12 +1,12 @@
 package com.fgrutsch.emergence.core.merge
 
-import cats.syntax.all.*
-import com.fgrutsch.emergence.core.condition.*
-import com.fgrutsch.emergence.core.configuration.*
-import com.fgrutsch.emergence.core.vcs.model.*
-import testutil.*
+import cats.syntax.all._
+import com.fgrutsch.emergence.core.condition._
+import com.fgrutsch.emergence.core.configuration._
+import com.fgrutsch.emergence.core.vcs.model._
+import testutil._
 
-import scala.concurrent.duration.*
+import scala.concurrent.duration._
 
 class MergeAlgSpec extends BaseSpec {
 

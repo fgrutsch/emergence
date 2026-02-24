@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Emergence contributors
+ * Copyright 2026 Emergence contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package com.fgrutsch.emergence.core.vcs
 
 import cats.MonadThrow
 import com.fgrutsch.emergence.core.model.{Settings, VcsType}
-import com.fgrutsch.emergence.core.vcs.bitbucketcloud.*
+import com.fgrutsch.emergence.core.vcs.bitbucketcloud._
 import sttp.client3.SttpBackend
 
 final class VcsFactory[F[_]: MonadThrow](using SttpBackend[F, Any]) {

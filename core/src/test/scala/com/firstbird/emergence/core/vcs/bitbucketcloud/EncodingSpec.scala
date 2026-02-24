@@ -1,10 +1,10 @@
 package com.fgrutsch.emergence.core.vcs.bitbucketcloud
 
-import cats.syntax.all.*
+import cats.syntax.all._
 import com.fgrutsch.emergence.core.vcs.bitbucketcloud.Encoding.given
-import com.fgrutsch.emergence.core.vcs.model.{MergeStrategy, *}
-import io.circe.parser.*
-import io.circe.syntax.*
+import com.fgrutsch.emergence.core.vcs.model.{MergeStrategy, _}
+import io.circe.parser._
+import io.circe.syntax._
 import io.circe.{DecodingFailure, Json}
 import org.scalatest.prop.TableDrivenPropertyChecks
 import testutil.BaseSpec

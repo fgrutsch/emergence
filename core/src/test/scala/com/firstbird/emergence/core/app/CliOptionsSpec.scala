@@ -1,19 +1,19 @@
 package com.fgrutsch.emergence.core.app
 
 import cats.data.NonEmptyList
-import cats.syntax.all.*
-import com.fgrutsch.emergence.core.app.CliOptions.*
-import com.fgrutsch.emergence.core.condition.*
+import cats.syntax.all._
+import com.fgrutsch.emergence.core.app.CliOptions._
+import com.fgrutsch.emergence.core.condition._
 import com.fgrutsch.emergence.core.configuration.RunConfig.RepositoryConfig
 import com.fgrutsch.emergence.core.configuration.{EmergenceConfig, MergeConfig, RunConfig}
 import com.fgrutsch.emergence.core.model.VcsType
 import com.fgrutsch.emergence.core.vcs.model.{MergeStrategy, Repository}
 import com.monovore.decline.Command
-import sttp.model.Uri.*
+import sttp.model.Uri._
 import testutil.BaseSpec
 
 import java.nio.file.Paths
-import scala.concurrent.duration.*
+import scala.concurrent.duration._
 
 class CliOptionsSpec extends BaseSpec {
 

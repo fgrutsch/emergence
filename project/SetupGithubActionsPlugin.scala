@@ -1,16 +1,29 @@
-import sbt._
+import sbt.*
+import sbt.Keys.crossScalaVersions
 import sbtghactions.GenerativePlugin
-import sbtghactions.GenerativePlugin.autoImport._
-import sbtghactions.WorkflowStep._
+import sbtghactions.GenerativePlugin.autoImport.*
+import sbtghactions.WorkflowStep.*
 
 object SetupGithubActionsPlugin extends AutoPlugin {
 
-  override def requires: Plugins = GenerativePlugin
-  override def trigger           = allRequirements
+  override def requires: Plugins              = GenerativePlugin
+  override def trigger                        = allRequirements
   override def buildSettings: Seq[Setting[_]] = Seq(
+    githubWorkflowPermissions := Some(
+      Permissions.Specify(
+        Map(PermissionScope.IdToken -> PermissionValue.Write, PermissionScope.Contents -> PermissionValue.Write)
+      )
+    ),
     githubWorkflowTargetTags ++= Seq("v*"),
-    githubWorkflowJavaVersions += JavaSpec.temurin("17"),
-    githubWorkflowBuild   := Seq(WorkflowStep.Sbt(List("codeVerify", "test"))),
+    githubWorkflowJavaVersions := Seq(JavaSpec.temurin("21")),
+    githubWorkflowBuild        := Seq(
+      WorkflowStep.Sbt(List("codeVerify", "coverage", "test", "coverageReport", "coverageAggregate"))
+    ),
+    githubWorkflowBuildPostamble += WorkflowStep.Use(
+      UseRef.Public("codecov", "codecov-action", "v5"),
+      name = Some("Upload coverage to Codecov"),
+      params = Map("fail_ci_if_error" -> "true", "use_oidc" -> "true")
+    ),
     githubWorkflowPublish := Seq(WorkflowStep.Sbt(List("ci-release"))),
     githubWorkflowPublishTargetBranches += RefPredicate.StartsWith(Ref.Tag("v")),
     githubWorkflowPublish := Seq(

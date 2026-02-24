@@ -1,6 +1,6 @@
 package com.fgrutsch.emergence.core.vcs.model
 
-import cats.syntax.all.*
+import cats.syntax.all._
 import com.fgrutsch.emergence.core.vcs.model.Repository
 import io.circe.{DecodingFailure, Json}
 import org.scalatest.prop.TableDrivenPropertyChecks

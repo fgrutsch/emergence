@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Emergence contributors
+ * Copyright 2026 Emergence contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ package com.fgrutsch.emergence.core.configuration
 import cats.MonadThrow
 import cats.effect.Sync
 import cats.kernel.Semigroup
-import cats.syntax.all.*
-import com.fgrutsch.emergence.core.configuration.*
+import cats.syntax.all._
+import com.fgrutsch.emergence.core.configuration._
 import com.fgrutsch.emergence.core.utils.config.configFromYaml
 import com.fgrutsch.emergence.core.vcs.VcsAlg
 import com.fgrutsch.emergence.core.vcs.model.{RepoFile, Repository}
@@ -30,7 +30,7 @@ class EmergenceConfigResolverAlg[F[_]](runConfig: RunConfig)(using vcsAlg: VcsAl
   def loadAndCombine(repo: Repository, runEmergenceConfig: Option[EmergenceConfig]): F[EmergenceConfig] = {
     for {
       maybeLocalRepoConfig <- vcsAlg.findEmergenceConfigFile(repo)
-      localRepoConfig <- maybeLocalRepoConfig match {
+      localRepoConfig      <- maybeLocalRepoConfig match {
         case Some(config) => parseEmergenceConfig(config).map(_.some)
         case None         => F.pure(none[EmergenceConfig])
       }
@@ -47,14 +47,6 @@ class EmergenceConfigResolverAlg[F[_]](runConfig: RunConfig)(using vcsAlg: VcsAl
     }
   }
 
-  private given Semigroup[EmergenceConfig] =
-    Semigroup.instance[EmergenceConfig]((x, y) => {
-      EmergenceConfig(
-        conditions = x.conditions |+| y.conditions,
-        merge = x.merge |+| y.merge
-      )
-    })
-
   private given Semigroup[MergeConfig] =
     Semigroup.instance[MergeConfig] { (x, y) =>
       MergeConfig(
@@ -63,5 +55,13 @@ class EmergenceConfigResolverAlg[F[_]](runConfig: RunConfig)(using vcsAlg: VcsAl
         throttle = x.throttle.orElse(y.throttle)
       )
     }
+
+  private given Semigroup[EmergenceConfig] =
+    Semigroup.instance[EmergenceConfig]((x, y) => {
+      EmergenceConfig(
+        conditions = x.conditions |+| y.conditions,
+        merge = x.merge |+| y.merge
+      )
+    })
 
 }

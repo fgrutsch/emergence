@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Emergence contributors
+ * Copyright 2026 Emergence contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,11 @@
 package com.fgrutsch.emergence.core
 
 import cats.effect.{ExitCode, IO}
-import cats.syntax.all.*
+import cats.syntax.all._
 import com.fgrutsch.emergence.BuildInfo
-import com.fgrutsch.emergence.core.app.CliOptions.*
-import com.fgrutsch.emergence.core.app.{CliOptions, *}
-import com.monovore.decline.*
+import com.fgrutsch.emergence.core.app.CliOptions._
+import com.fgrutsch.emergence.core.app.{CliOptions, _}
+import com.monovore.decline._
 import com.monovore.decline.effect.CommandIOApp
 
 object App

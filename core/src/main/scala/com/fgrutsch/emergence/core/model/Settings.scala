@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Emergence contributors
+ * Copyright 2026 Emergence contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package com.fgrutsch.emergence.core.model
 
 import cats.Functor
 import cats.effect.Sync
-import cats.syntax.all.*
+import cats.syntax.all._
 import com.fgrutsch.emergence.core.app.CliOptions
 import com.fgrutsch.emergence.core.configuration.RunConfig
 import com.fgrutsch.emergence.core.model.VcsType
