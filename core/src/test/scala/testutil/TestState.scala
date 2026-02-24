@@ -1,6 +1,6 @@
 package testutil
 
-import com.fgrutsch.emergence.core.vcs.model._
+import io.github.fgrutsch.emergence.core.vcs.model.{MergeStrategy, PullRequestNumber, RepoFile}
 
 object TestState {
 

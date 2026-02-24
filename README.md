@@ -1,6 +1,6 @@
 # eMERGEnce
 
-[![Maven](https://img.shields.io/maven-central/v/com.fgrutsch.emergence/core_3.svg?logo=Apache%20Maven&style=for-the-badge)](https://search.maven.org/search?q=g:%22com.fgrutsch.emergence%22%20AND%20a:%22core_3%22)
+[![Maven](https://img.shields.io/maven-central/v/io.github.fgrutsch/emergence-core_3.svg?logo=Apache%20Maven&style=for-the-badge)](https://search.maven.org/search?q=g:%22io.github.fgrutsch%22%20AND%20a:%22emergence-core_3%22)
 [![Github Actions CI Workflow](https://img.shields.io/github/actions/workflow/status/fgrutsch/emergence/ci.yml?logo=Github&style=for-the-badge)](https://github.com/fgrutsch/emergence/actions/workflows/ci.yml?query=branch%3Amain)
 [![Codecov](https://img.shields.io/codecov/c/github/fgrutsch/emergence/main?logo=Codecov&style=for-the-badge)](https://codecov.io/gh/fgrutsch/emergence)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=for-the-badge)](https://opensource.org/licenses/Apache-2.0)
@@ -17,7 +17,7 @@ The full documentation can be found [here](https://emergence.fgrutsch.com).
 
 To install eMERGEnce as an executable you can use coursier's [install](https://get-coursier.io/docs/cli-install) command. The only thing you have to do is to run:
 
-`coursier install --channel http://coursier.fgrutsch.com emergence`
+`coursier install --channel https://gist.githubusercontent.com/fgrutsch/f3ea5e1bdb5e43ccaac5b22f5e9514ae/raw/a6c09854905afd9e0ee19da9b3be69d66290a44e/coursier_channel.json emergence`
 
 To get a list of available options run: `emergence --help` and you should get the following output:
 
