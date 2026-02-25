@@ -1,7 +1,7 @@
 import java.time.LocalDate
 
 ThisBuild / dynverSeparator := "-" // Default uses '+' which is not valid for docker tags
-ThisBuild / scalaVersion    := "3.8.1"
+ThisBuild / scalaVersion    := "3.8.2"
 
 addCommandAlias("codeFmt", ";headerCreate;scalafmtAll;scalafmtSbt;scalafixAll")
 addCommandAlias("codeVerify", ";scalafmtCheckAll;scalafmtSbtCheck;scalafixAll --check;headerCheck")
