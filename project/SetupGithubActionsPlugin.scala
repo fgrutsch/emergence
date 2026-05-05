@@ -9,7 +9,10 @@ object SetupGithubActionsPlugin extends AutoPlugin {
   override def buildSettings: Seq[Setting[_]] = Seq(
     githubWorkflowPermissions := Some(
       Permissions.Specify(
-        Map(PermissionScope.IdToken -> PermissionValue.Write, PermissionScope.Contents -> PermissionValue.Write)
+        Map(
+          PermissionScope.IdToken  -> PermissionValue.Write,
+          PermissionScope.Contents -> PermissionValue.Write,
+          PermissionScope.Packages -> PermissionValue.Write)
       )
     ),
     githubWorkflowTargetTags ++= Seq("v*"),

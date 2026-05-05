@@ -17,6 +17,7 @@ on:
 permissions:
   id-token: write
   contents: write
+  packages: write
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
