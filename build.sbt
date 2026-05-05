@@ -70,7 +70,7 @@ lazy val core = project
   )
   .settings(
     dockerBaseImage      := "eclipse-temurin:21",
-    Docker / packageName := "fgrutsch/emergence",
+    Docker / packageName := "ghcr.io/fgrutsch/emergence",
     dockerUpdateLatest   := true
   )
 
