@@ -4,7 +4,7 @@ You can run eMERGEnce with [Docker](https://www.docker.com/) or with [coursier](
 
 ## Docker
 
-To get a list of available options run: `docker run fgrutsch/emergence:latest --help` and you should get the following output:
+To get a list of available options run: `docker run ghcr.io/fgrutsch/emergence:latest --help` and you should get the following output:
 
 @@@vars
 
@@ -37,7 +37,7 @@ Options and flags:
 An example `docker run` command might look like this (depending on the selected VCS type):
 
 ```bash
-docker run -v $HOST_DIR:/opt/emergence -it fgrutsch/emergence:latest \
+docker run -v $HOST_DIR:/opt/emergence -it ghcr.io/fgrutsch/emergence:latest \
     --config "/opt/emergence/run-config.yml" \
     --vcs-type "bitbucket-cloud" \
     --vcs-api-host "https://api.bitbucket.org/2.0" \

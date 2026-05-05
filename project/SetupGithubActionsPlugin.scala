@@ -1,8 +1,6 @@
 import sbt.*
-import sbt.Keys.crossScalaVersions
 import sbtghactions.GenerativePlugin
 import sbtghactions.GenerativePlugin.autoImport.*
-import sbtghactions.WorkflowStep.*
 
 object SetupGithubActionsPlugin extends AutoPlugin {
 
@@ -39,9 +37,10 @@ object SetupGithubActionsPlugin extends AutoPlugin {
     ),
     githubWorkflowPublishPostamble ++= List(
       WorkflowStep.Use(
-        UseRef.Public("docker", "login-action", "v2"),
+        UseRef.Public("docker", "login-action", "v4"),
         name = Some("Login to Docker Hub"),
-        params = Map("username" -> "${{ secrets.DOCKER_USERNAME }}", "password" -> "${{ secrets.DOCKER_TOKEN }}")
+        params =
+          Map("registry" -> "ghcr.io", "username" -> "${{ github.actor }}", "password" -> "${{ secrets.GITHUB_TOKEN }}")
       ),
       WorkflowStep.Run(List("sbt core/docker:publish"), name = Some("Publish docker image")),
       WorkflowStep.Run(
