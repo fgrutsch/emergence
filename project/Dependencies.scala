@@ -7,7 +7,7 @@ object Dependencies {
   private val sttpClientVersion = "3.11.0"
 
   val core: Seq[ModuleID] = Seq(
-    "ch.qos.logback"                   % "logback-classic"                % "1.5.34",
+    "ch.qos.logback"                   % "logback-classic"                % "1.5.37",
     "co.fs2"                          %% "fs2-io"                         % fs2Version,
     "co.fs2"                          %% "fs2-core"                       % fs2Version,
     "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml"        % "2.21.4",
