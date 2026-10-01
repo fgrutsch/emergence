@@ -3,14 +3,14 @@ import sbt._
 object Dependencies {
 
   private val circeVersion      = "0.14.16"
-  private val fs2Version        = "3.13.0"
+  private val fs2Version        = "3.14.0"
   private val sttpClientVersion = "3.11.0"
 
   val core: Seq[ModuleID] = Seq(
-    "ch.qos.logback"                   % "logback-classic"                % "1.6.3",
+    "ch.qos.logback"                   % "logback-classic"                % "1.6.5",
     "co.fs2"                          %% "fs2-io"                         % fs2Version,
     "co.fs2"                          %% "fs2-core"                       % fs2Version,
-    "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml"        % "2.22.2",
+    "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml"        % "2.22.3",
     "com.monovore"                    %% "decline-effect"                 % "2.6.2",
     "com.softwaremill.sttp.client3"   %% "core"                           % sttpClientVersion,
     "com.softwaremill.sttp.client3"   %% "circe"                          % sttpClientVersion,
