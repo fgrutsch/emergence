@@ -60,7 +60,7 @@ jobs:
           use_oidc: true
 
       - name: Compress target directories
-        run: tar cf targets.tar target core/target project/target
+        run: tar chf targets.tar target core/target project/target
 
       - name: Upload target directories
         uses: actions/upload-artifact@v7
